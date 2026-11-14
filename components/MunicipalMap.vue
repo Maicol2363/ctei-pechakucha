@@ -11,7 +11,7 @@ const props = defineProps({
   label: { type: String, default: '' },
 })
 const wave = (m) => Math.round((m.x / map.w + m.y / map.h) * 12)
-const cells = map.m.map(m => ({ ...m, wave: wave(m), look: hash(m.c) % 9 === 0 }))
+const cells = map.m.map(m => ({ ...m, wave: wave(m), band: Math.min(2, Math.floor(wave(m) / 8.5)), look: hash(m.c) % 9 === 0 }))
 function hash(code) {
   let value = 0
   for (const ch of code) value = (value * 31 + ch.charCodeAt(0)) >>> 0
@@ -32,13 +32,13 @@ const gacheta = computed(() => map.m.find(m => m.q))
     <g class="cmap-cells">
       <path
         v-for="m in cells" :key="m.c" :d="m.d" class="cell" fill-rule="evenodd"
-        :data-k="m.k" :data-q="m.q || undefined" :data-look="m.look || undefined"
+        :data-k="m.k" :data-band="m.band" :data-q="m.q || undefined" :data-look="m.look || undefined"
         :style="{ '--wave': m.wave }"
       />
     </g>
     <path v-if="map.bogota" :d="map.bogota.d" class="cmap-bogota" fill-rule="evenodd" />
     <text v-if="map.bogota" :x="map.bogota.x" :y="map.bogota.y + 4" class="cmap-bogota-label">Bogotá D.C.</text>
-    <g v-if="variant === 'locator'" class="cmap-pin" :transform="`translate(${gacheta.x} ${gacheta.y})`">
+    <g v-if="variant === 'locator' || variant === 'cover'" class="cmap-pin" :transform="`translate(${gacheta.x} ${gacheta.y})`">
       <circle class="pin-ring" r="22" />
       <circle class="pin-ring pin-ring-late" r="22" />
       <circle class="pin-dot" r="13" />

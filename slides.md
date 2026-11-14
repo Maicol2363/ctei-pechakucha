@@ -23,7 +23,7 @@ drawings:
 <!--
 A departmental average can hide the picture in a single municipality. I'm Maycol Estiven Fonseca Muñoz. My research question is this. In studies of municipal food insecurity, which criteria guide the selection of predictive models to obtain accurate and interpretable predictions?
 
-Open on one department-wide shape. When you say “a single municipality,” let it resolve into 116 outlines, then light up DANE’s 2022 estimates in a diagonal wave. Pause before the research question.
+End on the pulsing grey cell: that is Gachetá, which slide 3 returns to. Open on one department-wide shape. When you say “a single municipality,” let it resolve into 116 outlines, then light up DANE’s 2022 estimates in a diagonal wave. Pause before the research question.
 
 Approved question
 DANE 2022 municipal bulletin, Figure 20 (https://www.dane.gov.co/files/operaciones/FIES/bol-FIES-Municipal-2022.pdf)
@@ -42,7 +42,7 @@ Boundaries: DANE 2020 via geoBoundaries, CC BY 4.0 (https://www.geoboundaries.or
 <!--
 Gubert and colleagues estimated severe food insecurity in Brazilian municipalities. Busker and colleagues forecast food crises in the Horn of Africa. Those studies predict different outcomes on different time scales. That makes it difficult to use their reported performance to choose a model for Cundinamarca.
 
-Point to the difference between estimating a period and forecasting what comes next.
+Brazil’s dot field shows the 5,507 municipalities in Gubert et al. The Horn of Africa outlines show the 213 units forecast up to 12 months ahead in Busker et al. Point to the difference between estimating a period and forecasting what comes next.
 
 Gubert et al. (https://doi.org/10.37527/2010.60.2.002)
 Busker et al. (https://doi.org/10.1029/2023EF004211)
@@ -100,7 +100,7 @@ Approved objectives
 <!--
 I've appraised ten full-text papers in a literature matrix. I recorded what they predict, which data they use, and how they test and explain their models. I distinguish municipal applications from studies at other scales that can help inform the choice of methods.
 
-Show ten appraisals as work to date and the difference between direct and supplementary evidence.
+Ten appraisals land as rows, then the three criteria fill in as columns. Show ten appraisals as work to date and the difference between direct and supplementary evidence.
 
 RAE working workbook
 -->
@@ -114,7 +114,7 @@ RAE working workbook
 <!--
 Foini and colleagues forecast insufficient food consumption. Their model beat the last observed value at longer horizons in Yemen and Syria. That simple baseline did better in the other four countries they studied. Model choice depends on evidence from the conditions where it will be used.
 
-Explain the baseline through the phrase “last observation.” The outcome is insufficient food consumption. Use the result to motivate local evaluation.
+Syria and Yemen flip to “forecast led,” then the four other countries (Burkina Faso, Cameroon, Mali, Nigeria) flip to “baseline led.” Explain the baseline through the phrase “last observation.” The outcome is insufficient food consumption. Use the result to motivate local evaluation.
 
 Foini et al., results and Figure 3 (https://doi.org/10.1038/s41598-023-29700-y)
 -->
@@ -266,7 +266,7 @@ Project scope
 <!--
 I expect a model inventory, a matrix linking criteria to studies, and a practical selection guide. One candidate criterion is to check the uncertainty of a municipal prevalence estimate before using it. The synthesis will show where each criterion applies.
 
-Present the three as expected research outputs. The uncertainty check illustrates one possible entry in the guide.
+The last cue shows one example guide entry: DANE’s 30% uncertainty threshold turns the estimate into a flag. Present the three as expected research outputs. The uncertainty check illustrates one possible entry in the guide.
 
 Logical framework
 DANE municipal bulletin, Table 26 (https://www.dane.gov.co/files/operaciones/FIES/bol-FIES-Municipal-2022.pdf)
@@ -296,7 +296,7 @@ Thesis proposal
 <!--
 The evidence I've reviewed points to a practical conclusion. The outcome and available data determine which tests are meaningful. The quality of those tests, together with explanations of the predictions, gives us a basis for judging whether a model fits its intended use.
 
-Return to the study's three selection dimensions.
+Let the three questions merge into one “intended use” hub. Return to the study's three selection dimensions.
 
 Problem statement
 RAE working workbook
@@ -311,7 +311,7 @@ RAE working workbook
 <!--
 Before relying on a municipal prediction, ask what it measures, how it was tested, and how to interpret it. Those questions can guide the next model we evaluate for Cundinamarca and make the evidence easier to use in work toward Zero Hunger.
 
-Show the official Goal 2 icon again. Leave room for a short final pause before the run ends at 6:40.
+Light the map one question at a time. Gachetá lights last. Show the official Goal 2 icon again. Leave room for a short final pause before the run ends at 6:40.
 
 The United Nations did not approve this presentation. Its contents do not reflect the views of the United Nations, its officials or its Member States.
 

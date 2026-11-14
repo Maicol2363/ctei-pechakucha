@@ -5,6 +5,7 @@ import { clock, staticView } from '../clock.js'
 import { presenter, question, slides } from '../data/slides.js'
 import zeroHunger from '../assets/sdg2.png'
 import MunicipalMap from './MunicipalMap.vue'
+import { outlines } from '../data/study-outlines.js'
 import gachetaPhoto from '../assets/gacheta-plaza.jpg'
 import cachipayPhoto from '../assets/cachipay-market.jpg'
 
@@ -20,6 +21,15 @@ const serial = number => String(number).padStart(2, '0')
 const colors = ['#feebe1', '#fdafb7', '#f668a0', '#c31b83', '#79046a', '#bdbdbd']
 const legend = ['Below 20%', '20% to 30%', '30% to 40%', '40% to 60%', 'Above 60%', 'No estimate']
 const flowKinds = ['flow', 'local', 'local-impact']
+// Slide 2: one dot per cell of a coarse grid, clipped to Brazil's outline (a stand-in for its 5,507 municipalities).
+const brazilDots = []
+for (let y = 12; y < outlines.brazil.h; y += 24) {
+  for (let x = 12; x < outlines.brazil.w; x += 24) brazilDots.push({ x, y, wave: Math.round((x / outlines.brazil.w + y / outlines.brazil.h) * 10) })
+}
+// Slide 6: the ten full-text appraisals recorded in the RAE workbook.
+const appraised = ['Tomes 2025', 'Busker 2024', 'Westerveld 2021', 'Lentz 2019', 'Gholami 2022', 'Gubert 2010', 'Pyne 2023', 'Balashankar 2023', 'Herteux 2024', 'Foini 2023']
+// Slide 7: the six countries in Foini et al. Forecast beat the last observed value in Syria and Yemen only.
+const countries = [['Syria', true], ['Yemen', true], ['Burkina Faso', false], ['Cameroon', false], ['Mali', false], ['Nigeria', false]]
 </script>
 
 <template>
@@ -40,6 +50,7 @@ const flowKinds = ['flow', 'local', 'local-impact']
       <span class="field-beacon" />
       <span v-for="index in 6" :key="index" class="field-particle" :style="{ '--particle': index }" />
     </div>
+    <MunicipalMap v-if="slide.kind === 'closing'" class="closing-map" variant="closing" :stage="step" aria-hidden="true" label="Cundinamarca's 116 municipalities lighting up" />
     <header class="scene-header">
       <p class="eyebrow" :class="reveal(0)">{{ slide.label }}</p>
       <h1 v-if="slide.kind !== 'opening'" :class="reveal(0)">{{ slide.title }}</h1>
@@ -89,8 +100,27 @@ const flowKinds = ['flow', 'local', 'local-impact']
             <span class="comparison-mark" aria-hidden="true" />
             {{ index === 0 ? 'Model ahead of baseline' : 'Baseline ahead of model' }}
           </div>
+          <div v-if="number === 2" class="study-art" :class="index === 0 ? 'art-brazil' : 'art-horn'" aria-hidden="true">
+            <svg v-if="index === 0" :viewBox="`0 0 ${outlines.brazil.w} ${outlines.brazil.h}`">
+              <defs><clipPath id="clip-brazil"><path :d="outlines.brazil.d" /></clipPath></defs>
+              <path class="art-shape" :d="outlines.brazil.d" />
+              <g clip-path="url(#clip-brazil)">
+                <circle v-for="(dot, n) in brazilDots" :key="n" class="art-dot" :cx="dot.x" :cy="dot.y" r="5" :style="{ '--wave': dot.wave }" />
+              </g>
+            </svg>
+            <svg v-else :viewBox="`0 0 ${outlines.horn.w} ${outlines.horn.h}`">
+              <path v-for="name in ['kenya', 'somalia', 'ethiopia']" :key="name" class="art-shape art-region" :d="outlines.horn[name]" />
+            </svg>
+            <small>{{ index === 0 ? '5,507 municipalities' : '213 units, up to 12 months ahead' }}</small>
+          </div>
           <span class="moving-rule" aria-hidden="true" />
         </section>
+      </div>
+      <div v-if="number === 7" class="country-strip" :class="{ 'baseline-shown': step >= 2, 'forecast-shown': step >= 1 }">
+        <span
+          v-for="([name, forecastLed], index) in countries" :key="name" class="country-chip"
+          :class="forecastLed ? 'chip-forecast' : 'chip-baseline'" :style="{ '--chip': index }"
+        ><strong>{{ name }}</strong><small>{{ forecastLed ? 'Forecast led' : 'Baseline led' }}</small></span>
       </div>
       <p class="takeaway" :class="reveal(3)">{{ slide.takeaway }}</p>
     </div>
@@ -160,22 +190,46 @@ const flowKinds = ['flow', 'local', 'local-impact']
           <strong>{{ title }}</strong><span class="row-detail">{{ detail }}</span>
         </li>
       </ol>
-      <p v-if="slide.takeaway" class="takeaway" :class="reveal(slide.items.length + 1)">{{ slide.takeaway }}</p>
+      <p v-if="slide.takeaway && number !== 17" class="takeaway" :class="reveal(slide.items.length + 1)">{{ slide.takeaway }}</p>
+      <div v-if="number === 17" class="rule-card" :class="reveal(slide.items.length + 1)">
+        <div class="rule-copy">
+          <p class="eyebrow">Example guide entry</p>
+          <p class="rule-title">Check uncertainty before use</p>
+        </div>
+        <div class="rule-gauge" aria-hidden="true">
+          <span class="gauge-track" /><span class="gauge-zone" /><span class="gauge-limit"><b>30% cvlog</b></span><span class="gauge-dot" />
+          <span class="gauge-stamp">Flag</span>
+        </div>
+      </div>
+      <div v-if="number === 19" class="merge-rings" :class="reveal(1)" :data-merge="step >= 3 || undefined" aria-hidden="true">
+        <svg viewBox="0 0 360 320">
+          <g class="merge-links"><path d="M180 124V141" /><path d="M121 219L142 207" /><path d="M239 219L218 207" /></g>
+          <g class="merge-sat sat-a"><circle cx="180" cy="64" r="60" /><text x="180" y="70">Data fit</text></g>
+          <g class="merge-sat sat-b"><circle cx="69" cy="249" r="60" /><text x="69" y="255">Performance</text></g>
+          <g class="merge-sat sat-c"><circle cx="291" cy="249" r="60" /><text x="291" y="255">Interpretability</text></g>
+          <g class="merge-hub"><circle cx="180" cy="185" r="44" /><text x="180" y="181">Intended</text><text x="180" y="201">use</text></g>
+        </svg>
+      </div>
     </div>
 
     <div v-else-if="slide.kind === 'count'" class="count-body">
       <div class="count-stat" :class="reveal(0)">
         <strong><span class="sr-only">10</span><span class="appraisal-number" aria-hidden="true" /></strong>
         <span>Full-text appraisals</span>
-        <div class="appraisal-papers" aria-hidden="true">
-          <i v-for="index in 10" :key="index" :style="{ '--paper-order': index }" />
-        </div>
       </div>
-      <ol class="count-list">
-        <li v-for="(item, index) in slide.items" :key="item" :class="reveal(index + 1)">
-          <i aria-hidden="true" />{{ item }}
-        </li>
-      </ol>
+      <div class="matrix" :data-cols="Math.min(step, 3)">
+        <div class="matrix-head" aria-hidden="true">
+          <span />
+          <span v-for="(item, index) in slide.items" :key="item" :class="reveal(index + 1)">{{ item }}</span>
+        </div>
+        <ol class="matrix-rows">
+          <li v-for="(paper, row) in appraised" :key="paper" :class="reveal(0)" :style="{ '--row': row }">
+            <span class="matrix-paper">{{ paper }}</span>
+            <i v-for="col in 3" :key="col" class="matrix-tick" :class="{ 'is-on': step >= col }" :style="{ '--col': col }" />
+          </li>
+        </ol>
+        <span class="sr-only">Each of the ten papers was appraised for {{ slide.items.join(', ') }}.</span>
+      </div>
     </div>
 
     <div v-else-if="slide.kind === 'sdg'" class="sdg-body">

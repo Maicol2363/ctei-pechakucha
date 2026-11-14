@@ -1,0 +1,115 @@
+/* Scene-specific motion added in the second animation pass. */
+
+/* slide 1: the grey (no estimate) cell pulses once the estimates are in, then slide 3 opens on it */
+.cmap[data-variant='cover'] .cmap-pin { opacity: 0; transition: opacity 500ms var(--ease) 2600ms; }
+.cmap[data-variant='cover'][data-stage='2'] .cmap-pin { opacity: 1; }
+.cmap[data-variant='cover'] .pin-dot { display: none; }
+[data-motion=off] .cmap[data-variant='cover'] .cmap-pin { transition: none; }
+/* slide 3: the photo opens like an iris from the pin on the locator */
+[data-motion=on] .gacheta-card.is-visible .photo-frame > img {
+  animation: photo-iris 1300ms var(--ease) 250ms both, photo-drift 18s ease-in-out 1.5s infinite alternate;
+}
+@keyframes photo-iris { from { clip-path: circle(0 at 20% 70%); } to { clip-path: circle(140% at 20% 70%); } }
+
+/* slide 20: the map returns, lighting up one question at a time */
+.closing-map { position: absolute; right: 44px; top: 158px; height: 500px; width: auto; z-index: -1; pointer-events: none; }
+.cmap[data-variant='closing'] .cell {
+  fill: #f2bd6512; stroke: #f2bd6560; stroke-width: 1.2;
+  transition: fill 800ms var(--ease) calc(var(--wave) * 55ms), stroke 800ms var(--ease) calc(var(--wave) * 55ms);
+}
+.cmap[data-variant='closing'][data-stage='1'] .cell[data-band='0'],
+.cmap[data-variant='closing'][data-stage='2'] .cell:is([data-band='0'], [data-band='1']),
+.cmap[data-variant='closing'][data-stage='3'] .cell { fill: #f2bd65c4; stroke: #fff6df99; }
+.cmap[data-variant='closing'][data-stage='3'] .cell[data-q] { transition-delay: 2s; fill: #fff6df; }
+[data-motion=on] .cmap[data-variant='closing'][data-stage='3'] .cell { animation: closing-twinkle 6s ease-in-out calc(2.6s + var(--wave) * 110ms) infinite; }
+[data-motion=on] .cmap[data-variant='closing'][data-stage='3'] .cell[data-q] { animation: closing-last 2.4s var(--ease) 2s infinite; }
+@keyframes closing-twinkle { 0%, 12%, 100% { opacity: 1; } 5% { opacity: .5; } }
+@keyframes closing-last { 0%, 100% { transform: scale(1); } 45% { transform: scale(1.5); } }
+.cmap[data-variant='closing'] .cmap-bogota { stroke: #f2bd6580; }
+.cmap[data-variant='closing'] .cmap-bogota-label { fill: #f2bd65aa; }
+[data-motion=off] .cmap .cell { transition: none; }
+
+/* slide 2: scale and horizon of the two studies */
+.deck-scene[data-slide='2'] .split-grid section { padding-right: 190px; min-height: 250px; }
+.study-art { position: absolute; right: 12px; top: 16px; width: 150px; display: grid; gap: 5px; justify-items: center; z-index: 1; }
+.study-art svg { display: block; width: 112px; height: auto; overflow: visible; }
+.study-art small { width: 150px; color: var(--scene-accent); font: 750 15px/1.2 var(--sans); text-align: center; }
+.art-shape { fill: color-mix(in srgb, var(--scene-accent) 16%, transparent); stroke: var(--scene-accent); stroke-width: 3; stroke-linejoin: round; }
+.art-dot { fill: var(--scene-accent); opacity: .85; transform-box: fill-box; transform-origin: center; }
+[data-motion=on] .is-visible .art-dot {
+  animation: dot-pop 700ms var(--ease) calc(var(--wave) * 90ms) both, dot-shimmer 5s ease-in-out calc(1.8s + var(--wave) * 120ms) infinite;
+}
+@keyframes dot-pop { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes dot-shimmer { 0%, 18%, 100% { opacity: .85; } 8% { opacity: .2; } }
+.art-region { stroke-dasharray: 16 9; }
+[data-motion=on] .is-visible .art-region { animation: dash-flow 2.4s linear infinite; }
+@keyframes dash-flow { to { stroke-dashoffset: -50; } }
+
+/* slide 7: which countries the forecast won in */
+.country-strip { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+.country-chip {
+  display: grid; gap: 2px; padding: 11px 8px 9px; text-align: center; visibility: hidden; opacity: 0;
+  border: 2px solid var(--scene-accent); background: var(--scene-bg);
+}
+.country-chip strong { font: 740 23px/1.1 var(--sans); }
+.country-chip small { font: 750 15px/1.2 var(--sans); letter-spacing: .06em; text-transform: uppercase; }
+.forecast-shown .chip-forecast, .baseline-shown .chip-baseline { visibility: visible; opacity: 1; }
+.chip-forecast { background: var(--scene-accent); color: #fff; }
+.chip-baseline { border-style: dashed; color: var(--scene-accent); background: var(--scene-tint); }
+[data-motion=on] .forecast-shown .chip-forecast, [data-motion=on] .baseline-shown .chip-baseline {
+  animation: chip-flip 750ms var(--ease) calc(var(--chip) * 110ms) both;
+}
+@keyframes chip-flip { from { opacity: 0; transform: perspective(500px) rotateX(-90deg); } to { opacity: 1; transform: none; } }
+
+/* slide 6: ten appraisals land in a matrix */
+.deck-scene[data-slide='6'] .count-body { grid-template-columns: 400px minmax(0, 1fr); gap: 46px; }
+.deck-scene[data-slide='6'] .count-stat strong { font-size: 170px; }
+.matrix { display: grid; gap: 4px; min-width: 0; }
+.matrix-head, .matrix-rows li { display: grid; grid-template-columns: 215px repeat(3, minmax(0, 1fr)); align-items: center; }
+.matrix-head span { color: var(--scene-accent); font: 760 17px/1.15 var(--sans); text-align: center; padding-bottom: 6px; }
+.matrix-rows { display: grid; }
+.matrix-rows li { height: 35px; border-top: 1px solid var(--scene-rule); font: 700 21px/1 var(--sans); }
+.matrix-rows li:last-child { border-bottom: 1px solid var(--scene-rule); }
+.matrix-tick { position: relative; justify-self: center; width: 22px; height: 22px; border: 2px solid var(--scene-rule); border-radius: 50%; transition: background-color 400ms var(--ease), border-color 400ms var(--ease); }
+.matrix-tick.is-on { background: var(--scene-accent); border-color: var(--scene-accent); }
+.matrix-tick.is-on::after { content: ''; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px; border: solid #fff; border-width: 0 2.5px 2.5px 0; transform: rotate(40deg); }
+[data-motion=on] .matrix-rows li.is-visible { animation: sheet-in 650ms var(--ease) calc(160ms + var(--row) * 120ms) both; }
+[data-motion=on] .matrix-rows li .matrix-tick.is-on { animation: tick-pop 520ms var(--ease) calc(var(--row) * 90ms) both; }
+@keyframes sheet-in { from { opacity: 0; transform: translateX(-90px) rotate(-3deg); } to { opacity: 1; transform: none; } }
+@keyframes tick-pop { 0% { transform: scale(0); } 65% { transform: scale(1.3); } 100% { transform: scale(1); } }
+[data-motion=off] .matrix-tick { transition: none; }
+
+/* slide 17: a guide entry stamps itself */
+.rule-card { display: flex; align-items: center; justify-content: space-between; gap: 36px; padding: 14px 26px; border-left: 5px solid var(--scene-accent); background: var(--scene-tint); }
+.rule-title { font: 700 30px/1.15 var(--sans); color: var(--scene-accent); }
+.rule-gauge { position: relative; width: 470px; height: 66px; flex: none; }
+.gauge-track, .gauge-zone { position: absolute; top: 40px; height: 6px; border-radius: 3px; }
+.gauge-track { left: 0; right: 0; background: var(--scene-rule); }
+.gauge-zone { left: 60%; right: 0; background: repeating-linear-gradient(90deg, var(--ochre) 0 8px, transparent 8px 13px); }
+.gauge-limit { position: absolute; left: 60%; top: 22px; width: 2px; height: 38px; background: var(--ochre); }
+.gauge-limit b { position: absolute; left: -45px; top: -24px; width: 92px; color: var(--ochre); font: 750 16px/1 var(--sans); text-align: center; white-space: nowrap; }
+.gauge-dot { position: absolute; top: 34px; left: 80%; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%; background: var(--ochre); box-shadow: 0 0 0 5px color-mix(in srgb, var(--ochre) 25%, transparent); }
+.gauge-stamp { position: absolute; right: -6px; top: -8px; padding: 3px 11px; border: 2.5px solid var(--ochre); color: var(--ochre); font: 800 17px/1.1 var(--sans); letter-spacing: .1em; text-transform: uppercase; transform: rotate(-6deg); }
+[data-motion=on] .rule-card.is-visible .gauge-dot { animation: gauge-run 2.3s var(--ease) 400ms both; }
+[data-motion=on] .rule-card.is-visible .gauge-stamp { animation: stamp-in 420ms var(--ease) 2.6s both; }
+@keyframes gauge-run { 0% { left: 18%; background: var(--scene-accent); box-shadow: 0 0 0 5px var(--scene-rule); } 55% { background: var(--scene-accent); } 70%, 100% { background: var(--ochre); } 100% { left: 80%; } }
+@keyframes stamp-in { from { opacity: 0; transform: rotate(-6deg) scale(2.2); } to { opacity: 1; transform: rotate(-6deg) scale(1); } }
+
+/* slide 19: three questions merge into one intended use */
+.deck-scene[data-slide='19'] .rows-body { grid-template-columns: minmax(0, 1fr) 350px; align-items: center; gap: 30px; }
+.merge-rings svg { display: block; width: 100%; height: auto; overflow: visible; }
+.merge-sat circle { fill: var(--scene-tint); stroke: var(--scene-accent); stroke-width: 2.5; }
+.merge-sat text { fill: var(--scene-ink); font: 720 14.5px var(--sans); text-anchor: middle; }
+.merge-sat { transition: transform 1000ms var(--ease) 900ms, opacity 600ms var(--ease); }
+.sat-a { transform: translateY(-34px); } .sat-b { transform: translate(-34px, 26px); } .sat-c { transform: translate(34px, 26px); }
+.merge-hub { transform-box: fill-box; transform-origin: center; transform: scale(.3); opacity: 0; transition: transform 800ms var(--ease) 1500ms, opacity 600ms var(--ease) 1500ms; }
+.merge-hub circle { fill: var(--night); }
+.merge-hub text { fill: var(--cream); font: 740 15px var(--sans); text-anchor: middle; }
+.merge-links path { fill: none; stroke: var(--scene-accent); stroke-width: 3; stroke-dasharray: 40; stroke-dashoffset: 40; transition: stroke-dashoffset 700ms var(--ease) 1700ms; }
+.merge-rings[data-merge] .merge-sat { transform: none; }
+.merge-rings[data-merge] .merge-hub { transform: none; opacity: 1; }
+.merge-rings[data-merge] .merge-links path { stroke-dashoffset: 0; }
+.deck-scene[data-step='1'] .sat-b, .deck-scene[data-step='1'] .sat-c, .deck-scene[data-step='2'] .sat-c { opacity: 0; }
+[data-motion=on] .merge-rings[data-merge] .merge-hub circle { animation: hub-pulse 3s ease-out 2.6s infinite; }
+@keyframes hub-pulse { 0%, 100% { stroke: transparent; stroke-width: 0; } 40% { stroke: var(--scene-accent); stroke-width: 10; } 80% { stroke: transparent; stroke-width: 18; } }
+[data-motion=off] .merge-sat, [data-motion=off] .merge-hub, [data-motion=off] .merge-links path { transition: none; }

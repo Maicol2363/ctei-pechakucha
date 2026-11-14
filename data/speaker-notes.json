@@ -8,7 +8,7 @@
       "My research question is this.",
       "In studies of municipal food insecurity, which criteria guide the selection of predictive models to obtain accurate and interpretable predictions?"
     ],
-    "cue": "Open on one department-wide shape. When you say “a single municipality,” let it resolve into 116 outlines, then light up DANE’s 2022 estimates in a diagonal wave. Pause before the research question.",
+    "cue": "End on the pulsing grey cell: that is Gachetá, which slide 3 returns to. Open on one department-wide shape. When you say “a single municipality,” let it resolve into 116 outlines, then light up DANE’s 2022 estimates in a diagonal wave. Pause before the research question.",
     "links": [
       {
         "label": "Approved question"
@@ -44,7 +44,7 @@
       "Those studies predict different outcomes on different time scales.",
       "That makes it difficult to use their reported performance to choose a model for Cundinamarca."
     ],
-    "cue": "Point to the difference between estimating a period and forecasting what comes next.",
+    "cue": "Brazil’s dot field shows the 5,507 municipalities in Gubert et al. The Horn of Africa outlines show the 213 units forecast up to 12 months ahead in Busker et al. Point to the difference between estimating a period and forecasting what comes next.",
     "links": [
       {
         "label": "Gubert et al.",
@@ -113,7 +113,7 @@
       "I recorded what they predict, which data they use, and how they test and explain their models.",
       "I distinguish municipal applications from studies at other scales that can help inform the choice of methods."
     ],
-    "cue": "Show ten appraisals as work to date and the difference between direct and supplementary evidence.",
+    "cue": "Ten appraisals land as rows, then the three criteria fill in as columns. Show ten appraisals as work to date and the difference between direct and supplementary evidence.",
     "links": [
       {
         "label": "RAE working workbook"
@@ -129,7 +129,7 @@
       "That simple baseline did better in the other four countries they studied.",
       "Model choice depends on evidence from the conditions where it will be used."
     ],
-    "cue": "Explain the baseline through the phrase “last observation.” The outcome is insufficient food consumption. Use the result to motivate local evaluation.",
+    "cue": "Syria and Yemen flip to “forecast led,” then the four other countries (Burkina Faso, Cameroon, Mali, Nigeria) flip to “baseline led.” Explain the baseline through the phrase “last observation.” The outcome is insufficient food consumption. Use the result to motivate local evaluation.",
     "links": [
       {
         "label": "Foini et al., results and Figure 3",
@@ -306,7 +306,7 @@
       "One candidate criterion is to check the uncertainty of a municipal prevalence estimate before using it.",
       "The synthesis will show where each criterion applies."
     ],
-    "cue": "Present the three as expected research outputs. The uncertainty check illustrates one possible entry in the guide.",
+    "cue": "The last cue shows one example guide entry: DANE’s 30% uncertainty threshold turns the estimate into a flag. Present the three as expected research outputs. The uncertainty check illustrates one possible entry in the guide.",
     "links": [
       {
         "label": "Logical framework"
@@ -343,7 +343,7 @@
       "The outcome and available data determine which tests are meaningful.",
       "The quality of those tests, together with explanations of the predictions, gives us a basis for judging whether a model fits its intended use."
     ],
-    "cue": "Return to the study's three selection dimensions.",
+    "cue": "Let the three questions merge into one “intended use” hub. Return to the study's three selection dimensions.",
     "links": [
       {
         "label": "Problem statement"
@@ -360,7 +360,7 @@
       "Before relying on a municipal prediction, ask what it measures, how it was tested, and how to interpret it.",
       "Those questions can guide the next model we evaluate for Cundinamarca and make the evidence easier to use in work toward Zero Hunger."
     ],
-    "cue": "Show the official Goal 2 icon again. Leave room for a short final pause before the run ends at 6:40.",
+    "cue": "Light the map one question at a time. Gachetá lights last. Show the official Goal 2 icon again. Leave room for a short final pause before the run ends at 6:40.",
     "links": [
       {
         "label": "UN Goal 2",
