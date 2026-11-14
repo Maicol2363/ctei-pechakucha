@@ -1,6 +1,6 @@
 # CTeI 1 PechaKucha
 
-The live deck runs in English for 6 minutes 40 seconds. Choose **Start presentation** to begin the clock. The deck advances every 20 seconds and reveals the content within each slot.
+Choose **Start presentation** for the 6-minute-40-second run, or **Study mode** to choose any of the 20 slides and read it at your own pace. In Study mode, each slide appears fully revealed and the timer stops. The **Study mode** button is also available during a timed run. To practice the timed reveals on a single slide, choose **Rehearse reveals** from the study controls.
 
 ## Run locally
 

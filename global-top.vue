@@ -17,6 +17,7 @@ const active = computed(() => slides[clock.slide - 1])
 const note = computed(() => notes[clock.slide - 1])
 const progress = computed(() => Math.max(0, Math.min(1, clock.elapsed / totalMs)))
 const noteIndex = computed(() => {
+  if (clock.mode === 'study') return -1
   const steps = active.value.cues.length
   return Math.round(clock.step * (note.value.sentences.length - 1) / (steps - 1))
 })
@@ -103,6 +104,12 @@ function review(slide = 1) {
   move(slide, 0)
 }
 
+function study(slide = clock.slide) {
+  backupPage.value = null
+  clock.mode = 'study'
+  move(slide, slides[slide - 1].cues.length - 1)
+}
+
 function reset() {
   showNotes.value = false
   backupPage.value = null
@@ -119,6 +126,7 @@ function move(slide, step) {
 }
 
 function toggleManual() {
+  if (clock.mode === 'study') return
   if (clock.mode === 'ready' || clock.mode === 'finished') review(clock.slide)
   if (clock.mode === 'manual') {
     if (priorMode === 'live') {
@@ -145,6 +153,11 @@ function next(direction, skip = false) {
   if (clock.mode === 'live' || backupPage.value !== null) return
   if (clock.mode === 'ready' || clock.mode === 'finished') {
     review(clock.slide)
+    return
+  }
+  if (clock.mode === 'study') {
+    const target = clock.slide + direction
+    if (target >= 1 && target <= slides.length) study(target)
     return
   }
   const stepped = clock.mode === 'manual' || active.value.manualReview
@@ -191,6 +204,7 @@ const actions = {
 
 function keydown(event) {
   if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return
+  if (event.target.closest?.('select, input, textarea, [contenteditable="true"]')) return
   const key = event.key.length === 1 ? event.key.toLowerCase() : event.key
   const question = /^[1-3]$/.test(key)
   if (!actions[key] && !question) return
@@ -206,7 +220,9 @@ function keydown(event) {
 }
 
 onMounted(() => {
-  watchEffect(() => { document.documentElement.dataset.deckMotion = clock.motion && !disabled.value ? 'on' : 'off' })
+  watchEffect(() => {
+    document.documentElement.dataset.deckMotion = clock.motion && !disabled.value && clock.mode !== 'study' ? 'on' : 'off'
+  })
   if (disabled.value) return
   if (currentPage.value > 1) review(currentPage.value)
   window.addEventListener('keydown', keydown, true)
@@ -227,7 +243,7 @@ onBeforeUnmount(() => {
   <Teleport to="body">
   <div v-if="!disabled" class="deck-overlay" :data-mode="clock.mode" :data-motion="clock.motion ? 'on' : 'off'">
     <div
-      v-if="clock.mode !== 'ready'"
+      v-if="clock.mode !== 'ready' && clock.mode !== 'study'"
       class="deck-progress"
       role="progressbar"
       aria-label="Presentation time"
@@ -254,23 +270,42 @@ onBeforeUnmount(() => {
         <p>20 slides · 20 seconds each · {{ totalLabel }}</p>
         <div class="start-actions">
           <button type="button" class="primary-action" @click="start">Start presentation <span aria-hidden="true">→</span></button>
-          <button type="button" class="secondary-action" @click="review()">Rehearse slides</button>
+          <button type="button" class="secondary-action" @click="study()">Study mode <span>· No timer</span></button>
         </div>
       </div>
     </div>
+    <button v-if="clock.mode === 'live'" type="button" class="enter-study" @click="study()">Study mode</button>
     <div v-if="clock.mode === 'finished'" class="finish-controls">
-      <span>{{ totalLabel }} complete</span><button type="button" @click="reset">Replay</button>
+      <span>{{ totalLabel }} complete</span><button type="button" @click="study()">Study mode</button><button type="button" @click="reset">Replay</button>
     </div>
     <div v-if="clock.mode === 'review' || clock.mode === 'manual'" class="review-controls">
       <button type="button" aria-label="Previous slide or reveal" @click="next(-1)">←</button>
       <span>{{ clock.mode === 'manual' ? 'Manual' : active.manualReview ? 'Manual reveals' : 'Rehearsal' }}</span>
       <button type="button" aria-label="Next slide or reveal" @click="next(1)">→</button>
+      <button type="button" @click="study()">Study mode</button>
       <button type="button" @click="reset">Home</button>
     </div>
 
+    <nav v-if="clock.mode === 'study'" class="study-controls" aria-label="Study controls">
+      <div class="study-navigation">
+        <button type="button" aria-label="Previous slide" :disabled="clock.slide === 1" @click="next(-1)">←</button>
+        <select :value="clock.slide" aria-label="Choose any slide" @change="study(Number($event.target.value))">
+          <option v-for="(slide, index) in slides" :key="slide.title" :value="index + 1">
+            {{ String(index + 1).padStart(2, '0') }} · {{ slide.title }}
+          </option>
+        </select>
+        <button type="button" aria-label="Next slide" :disabled="clock.slide === slides.length" @click="next(1)">→</button>
+      </div>
+      <div class="study-actions">
+        <button type="button" :aria-pressed="showNotes" @click="showNotes = !showNotes">Speaker notes</button>
+        <button type="button" @click="review(clock.slide)">Rehearse reveals</button>
+        <button type="button" @click="reset">Home</button>
+      </div>
+    </nav>
+
     <aside v-if="showNotes" class="notes-panel" aria-label="Speaker notes">
       <div class="notes-heading">
-        <div><p class="eyebrow">Slide {{ clock.slide }} · {{ note.start }} · 20 seconds</p><h2>{{ active.title }}</h2></div>
+        <div><p class="eyebrow">Slide {{ clock.slide }} · {{ clock.mode === 'study' ? 'Study mode' : note.start + ' · 20 seconds' }}</p><h2>{{ active.title }}</h2></div>
         <button type="button" aria-label="Close speaker notes" @click="showNotes = false">×</button>
       </div>
       <p class="notes-idea">{{ active.idea }}</p>

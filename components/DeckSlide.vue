@@ -26,7 +26,7 @@ const flowKinds = ['flow', 'local', 'local-impact']
     :class="['tone-' + (slide.tone || 'paper'), 'scene-' + slide.kind]"
     :data-slide="number"
     :data-step="step"
-    :data-motion="clock.motion && !still && clock.slide === number && clock.mode !== 'ready' ? 'on' : 'off'"
+    :data-motion="clock.motion && !still && clock.slide === number && !['ready', 'study'].includes(clock.mode) ? 'on' : 'off'"
   >
     <div class="scene-field" aria-hidden="true">
       <span class="field-grid" />
