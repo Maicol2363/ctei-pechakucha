@@ -8,6 +8,7 @@ import '@fontsource-variable/dm-sans'
 import '@fontsource-variable/playfair-display'
 import './styles/deck.css'
 import './styles/motion.css'
+import './styles/map.css'
 
 const { currentPage, go, isPrintMode, isPresenter } = useNav()
 const disabled = computed(() => staticView || isPrintMode.value || isPresenter.value)

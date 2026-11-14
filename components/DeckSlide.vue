@@ -3,8 +3,10 @@ import { computed } from 'vue'
 import { useNav } from '@slidev/client'
 import { clock, staticView } from '../clock.js'
 import { presenter, question, slides } from '../data/slides.js'
-import municipalMap from '../assets/cundinamarca.png'
 import zeroHunger from '../assets/sdg2.png'
+import MunicipalMap from './MunicipalMap.vue'
+import gachetaPhoto from '../assets/gacheta-plaza.jpg'
+import cachipayPhoto from '../assets/cachipay-market.jpg'
 
 const props = defineProps({ number: { type: Number, required: true } })
 const { isPrintMode } = useNav()
@@ -52,17 +54,23 @@ const flowKinds = ['flow', 'local', 'local-impact']
         </div>
       </div>
       <figure class="map" :class="reveal(0)">
-        <figcaption>Household food insecurity · Cundinamarca, 2022</figcaption>
-        <div class="map-image">
-          <img :src="municipalMap" alt="DANE’s map of 2022 municipal estimates for moderate or severe household food insecurity">
-          <span class="map-scan" aria-hidden="true" />
-          <div class="map-legend">
+        <figcaption>
+          <span class="map-title" :data-on="step < 1">Cundinamarca · department level</span>
+          <span class="map-title" :data-on="step === 1">116 municipal boundaries</span>
+          <span class="map-title" :data-on="step >= 2">Household food insecurity · 2022 estimates</span>
+        </figcaption>
+        <div class="map-body">
+          <MunicipalMap :key="clock.mode === 'ready' ? 'ready' : 'play-' + clock.replay" class="map-art" :stage="Math.min(step, 2)" label="Cundinamarca resolving into 116 municipalities, colored by DANE's 2022 household food-insecurity estimates" />
+          <div class="map-legend" :class="{ 'is-on': step >= 2 }">
             <span v-for="(label, index) in legend" :key="label">
               <i :style="{ backgroundColor: colors[index], '--legend-order': index }" />{{ label }}
             </span>
           </div>
         </div>
-        <small :class="reveal(1)">DANE · FIES Municipal 2022 · Figure 20</small>
+        <small class="map-source">
+          <span :data-on="step < 2">Boundaries · DANE 2020 via geoBoundaries</span>
+          <span :data-on="step >= 2">Estimates · DANE FIES Municipal 2022, Figure 20<br>Boundaries · DANE 2020 via geoBoundaries</span>
+        </small>
       </figure>
     </div>
 
@@ -87,26 +95,50 @@ const flowKinds = ['flow', 'local', 'local-impact']
       <p class="takeaway" :class="reveal(3)">{{ slide.takeaway }}</p>
     </div>
 
-    <div v-else-if="flowKinds.includes(slide.kind)" class="flow-body">
-      <ol class="flow-track">
-        <li
-          v-for="(item, index) in slide.items" :key="index"
-          :class="[
-            reveal(slide.kind === 'local' ? Math.min(index + 1, 2) : index + 1),
-            { 'link-ready': index < slide.items.length - 1 && step >= (slide.kind === 'local' ? 2 : index + 2) },
-          ]"
-        >
-          <span class="track-dot" aria-hidden="true" />
-          <span v-if="index < slide.items.length - 1" class="flow-link" aria-hidden="true"><i /></span>
-          <span v-if="Array.isArray(item)" class="eyebrow">{{ item[0] }}</span>
-          <strong>{{ Array.isArray(item) ? item[1] : item }}</strong>
-        </li>
-      </ol>
-      <div v-if="slide.kind === 'local'" class="local-flag" :class="reveal(3)">
-        <span class="quality-signal" aria-hidden="true">!</span>
-        <h2>Gachetá</h2><p>{{ slide.takeaway }}</p>
+    <div v-else-if="flowKinds.includes(slide.kind)" class="flow-body" :class="{ 'flow-with-photo': slide.kind === 'local' || slide.kind === 'local-impact' }">
+      <div class="flow-main">
+        <ol class="flow-track">
+          <li
+            v-for="(item, index) in slide.items" :key="index"
+            :class="[
+              reveal(slide.kind === 'local' ? Math.min(index + 1, 2) : index + 1),
+              { 'link-ready': index < slide.items.length - 1 && step >= (slide.kind === 'local' ? 2 : index + 2) },
+            ]"
+          >
+            <span class="track-dot" aria-hidden="true" />
+            <span v-if="index < slide.items.length - 1" class="flow-link" aria-hidden="true"><i /></span>
+            <span v-if="Array.isArray(item)" class="eyebrow">{{ item[0] }}</span>
+            <strong>{{ Array.isArray(item) ? item[1] : item }}</strong>
+            <span v-if="number === 10 && index === 1" class="model-pool" :class="{ 'is-filtering': step >= 2 }" aria-hidden="true">
+              <i v-for="n in 6" :key="n" :style="{ '--model': n }" />
+            </span>
+            <span v-if="number === 10 && index === 1" class="pool-label" :class="{ 'is-on': step >= 2 }">Shortlist, then test locally</span>
+            <span v-if="number === 10 && index === 2" class="version-chip" :class="{ 'is-on': step >= 3 }" aria-hidden="true">Model v1 · inputs logged</span>
+          </li>
+        </ol>
+        <div v-if="slide.kind === 'local'" class="local-flag" :class="reveal(3)">
+          <span class="quality-signal" aria-hidden="true">!</span>
+          <h2>Gachetá</h2><p>{{ slide.takeaway }}</p>
+        </div>
+        <p v-if="number === 12" class="takeaway" :class="reveal(3)">Use in planning depends on validation.</p>
       </div>
-      <p v-if="number === 12" class="takeaway" :class="reveal(3)">Use in planning depends on validation.</p>
+      <figure v-if="slide.kind === 'local-impact'" class="plan-card" :class="reveal(1)">
+        <MunicipalMap variant="plan" :stage="step" label="Illustrative map of municipalities being assessed" />
+        <figcaption>
+          <b>{{ ['', 'Municipal outlines', 'Estimates with uncertainty', 'Further assessment'][step] }}</b>
+          <span>Illustrative only · not a result</span>
+        </figcaption>
+      </figure>
+      <figure v-if="slide.kind === 'local'" class="photo-card gacheta-card" :class="reveal(3)">
+        <div class="photo-frame">
+          <img :src="gachetaPhoto" alt="The main square and church of Gachetá, Cundinamarca">
+          <span class="photo-flag" aria-hidden="true">Quality flag · 2022</span>
+          <div class="photo-locator">
+            <MunicipalMap variant="locator" :stage="2" label="Gachetá marked on the map of Cundinamarca" />
+          </div>
+        </div>
+        <figcaption>Gachetá, Cundinamarca · Photo: Click1master, CC BY 4.0, Wikimedia Commons</figcaption>
+      </figure>
     </div>
 
     <div v-else-if="slide.kind === 'statement'" class="statement-body">
@@ -155,6 +187,10 @@ const flowKinds = ['flow', 'local', 'local-impact']
           <p class="eyebrow">{{ title }}</p><p>{{ detail }}</p>
         </section>
       </div>
+      <figure class="photo-card market-card" :class="reveal(1)">
+        <div class="photo-frame"><img :src="cachipayPhoto" alt="Vendors and shoppers in the covered market of Cachipay, Cundinamarca"></div>
+        <figcaption>Market in Cachipay, Cundinamarca · Photo: Jairud, CC BY-SA 4.0, Wikimedia Commons</figcaption>
+      </figure>
     </div>
 
     <div v-else-if="slide.kind === 'problem'" class="problem-body">

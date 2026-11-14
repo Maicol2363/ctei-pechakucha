@@ -29,29 +29,9 @@
   55% { transform: translate(-22px, -32px) scale(1.13); opacity: .48; }
 }
 
-.map-image { overflow: hidden; }
-.map-scan {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  background: linear-gradient(transparent 39%, #ce9b323e 47%, #f2bd659c 50%, transparent 54%);
-}
-[data-motion=on] .map-scan { animation: map-pass 5.6s var(--ease) 700ms infinite; }
-[data-motion=on] .map-legend i {
-  animation: legend-pulse 5.6s ease-in-out infinite;
-  animation-delay: calc(1200ms + var(--legend-order) * 210ms);
-}
-@keyframes map-pass {
-  0% { opacity: 0; transform: translateY(-57%); }
-  13% { opacity: 1; }
-  64% { opacity: 0; transform: translateY(54%); }
-  100% { opacity: 0; transform: translateY(54%); }
-}
-@keyframes legend-pulse {
-  0%, 20%, 100% { transform: scale(1); }
-  8% { transform: scale(1.55); box-shadow: 0 0 0 2px #172d2826; }
-}
+[data-motion=on] .map-legend.is-on i { animation: legend-pulse 5.6s ease-in-out infinite; animation-delay: calc(1200ms + var(--legend-order) * 210ms); }
+@keyframes legend-pulse { 0%, 20%, 100% { transform: scale(1); } 8% { transform: scale(1.35); } }
+[data-motion=off] .map-title, [data-motion=off] .map-legend, [data-motion=off] .map-source span { transition: none; }
 
 .split-grid section { transition: background-color 320ms var(--ease); overflow: hidden; }
 .split-grid .split-focus { background-color: color-mix(in srgb, var(--scene-accent) 13%, var(--scene-bg)); }

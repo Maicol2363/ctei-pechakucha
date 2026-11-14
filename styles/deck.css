@@ -160,32 +160,26 @@ html[data-deck-motion=off] .grid-shift-leave-active { transition: none; }
   min-width: 0;
   justify-self: end;
   display: grid;
-  width: 458px;
-  padding: 17px 19px 12px;
+  gap: 8px;
+  width: 520px;
+  padding: 16px 20px 12px;
   background: #fff;
   color: var(--ink);
   font: 650 15px/1.25 var(--sans);
   border: 1px solid var(--amber);
 }
-.map figcaption { margin-bottom: 7px; font-weight: 800; }
-.map-image { position: relative; width: 390px; margin: auto; }
-.map img { display: block; width: 100%; height: auto; }
-.map-legend {
-  position: absolute;
-  left: 64%;
-  top: 77.4%;
-  bottom: 0;
-  right: 0;
-  display: grid;
-  align-content: start;
-  gap: 1px;
-  padding: 3px 0 0 4px;
-  background: white;
-  font: 650 10.5px/1.2 var(--sans);
-}
-.map-legend span { display: flex; gap: 4px; align-items: center; }
-.map-legend i { width: 9px; height: 9px; }
-.map small { color: var(--moss); font-size: 13px; }
+.map figcaption { position: relative; height: 22px; font: 800 17px/1.2 var(--sans); }
+.map-title { position: absolute; inset: 0 auto auto 0; white-space: nowrap; opacity: 0; transform: translateY(6px); transition: opacity 420ms var(--ease), transform 420ms var(--ease); }
+.map-title[data-on=true] { opacity: 1; transform: none; }
+.map-body { display: grid; grid-template-columns: 310px minmax(0, 1fr); align-items: center; gap: 12px; }
+.map-art { width: 310px; }
+.map-legend { display: grid; gap: 9px; font: 650 14px/1.2 var(--sans); opacity: 0; transform: translateX(-10px); transition: opacity 600ms var(--ease) 500ms, transform 600ms var(--ease) 500ms; }
+.map-legend.is-on { opacity: 1; transform: none; }
+.map-legend span { display: flex; gap: 8px; align-items: center; }
+.map-legend i { flex: 0 0 18px; height: 18px; border: 1px solid #0003; }
+.map-source { position: relative; display: block; height: 34px; color: var(--moss); font-size: 13px; }
+.map-source span { position: absolute; inset: 0 auto auto 0; opacity: 0; transition: opacity 420ms var(--ease); }
+.map-source span[data-on=true] { opacity: 1; }
 
 .split-body, .flow-body, .rows-body, .statement-body { display: grid; align-content: center; gap: 30px; min-height: 0; }
 .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; }

@@ -23,10 +23,14 @@ drawings:
 <!--
 A departmental average can hide the picture in a single municipality. I'm Maycol Estiven Fonseca Muñoz. My research question is this. In studies of municipal food insecurity, which criteria guide the selection of predictive models to obtain accurate and interpretable predictions?
 
-Show the question, name and Cundinamarca map from the start. Pause before the research question.
+Open on one department-wide shape. When you say “a single municipality,” let it resolve into 116 outlines, then light up DANE’s 2022 estimates in a diagonal wave. Pause before the research question.
 
 Approved question
 DANE 2022 municipal bulletin, Figure 20 (https://www.dane.gov.co/files/operaciones/FIES/bol-FIES-Municipal-2022.pdf)
+DANE annex, Cuadro 1 (https://www.dane.gov.co/files/operaciones/FIES/anex-FIES-Municipal-2022.xlsx)
+Boundaries: DANE 2020 via geoBoundaries, CC BY 4.0 (https://www.geoboundaries.org/api/current/gbOpen/COL/ADM2/)
+DANE annex, Cuadro 1 (https://www.dane.gov.co/files/operaciones/FIES/anex-FIES-Municipal-2022.xlsx)
+Boundaries: DANE 2020 via geoBoundaries, CC BY 4.0 (https://www.geoboundaries.org/api/current/gbOpen/COL/ADM2/)
 -->
 
 ---
@@ -53,9 +57,10 @@ Busker et al. (https://doi.org/10.1029/2023EF004211)
 <!--
 Colombia's national statistics office, DANE, uses statistical models where survey samples are too small for reliable direct estimates. In its municipal bulletin for 2022, DANE flagged Gachetá's estimate for high uncertainty. That example shows why checking a local estimate's quality matters.
 
-Highlight Gachetá's quality flag. The 30% threshold concerns the uncertainty measure, the logarithmic coefficient of variation. Keep the flagged prevalence off the slide.
+Build the survey-to-estimate chain, then show Gachetá on the map and in its square with the quality flag. The 30% threshold concerns the uncertainty measure, the logarithmic coefficient of variation. Keep the flagged prevalence off the slide.
 
 DANE 2022 municipal bulletin, Table 26 (https://www.dane.gov.co/files/operaciones/FIES/bol-FIES-Municipal-2022.pdf)
+Gachetá photo, Click1master, CC BY 4.0 (https://commons.wikimedia.org/wiki/File:Gacheta_2024.jpg)
 -->
 
 ---
@@ -156,7 +161,7 @@ Thesis proposal
 <!--
 These lines come together in my larger thesis, which proposes a platform to integrate public data and deploy versioned models. This semester focuses on the decision that comes before deployment. The guide would help my thesis team shortlist models and plan how to test them locally.
 
-Give the literature guide and platform separate labels. Shortlisting is the proposed first use of the guide.
+Let the candidate models narrow to a shortlist, then pass one versioned model to deployment. Give the literature guide and platform separate labels. Shortlisting is the proposed first use of the guide.
 
 Approved objectives
 Thesis proposal
@@ -171,12 +176,13 @@ Thesis proposal
 <!--
 This research connects to Sustainable Development Goal Two, Zero Hunger. Its first target includes access to safe, nutritious and sufficient food. One indicator tracks moderate or severe food insecurity using the Food Insecurity Experience Scale. That gives the monitoring problem a direct connection to the goal.
 
-Show the official English icon with Target 2.1 and Indicator 2.1.2.
+Show the official English icon with Target 2.1 and Indicator 2.1.2, beside a market in Cachipay as a local example of food access.
 
 The United Nations did not approve this presentation. Its contents do not reflect the views of the United Nations, its officials or its Member States.
 
 UN indicator metadata (https://unstats.un.org/sdgs/metadata?Target=2.1)
 UN icon (https://www.un.org/sustainabledevelopment/news/communications-material/)
+Cachipay market photo, Jairud, CC BY-SA 4.0 (https://commons.wikimedia.org/wiki/File:Plaza_mercado_cachipay-cundinamarca.jpg)
 -->
 
 ---
@@ -275,7 +281,7 @@ DANE municipal bulletin, Table 26 (https://www.dane.gov.co/files/operaciones/FIE
 <!--
 For Cundinamarca, imagine a planning team deciding where to look more closely. A locally tested model could help flag municipalities for further assessment, with uncertainty visible. The guide would give the thesis team a starting point for choosing which model to test for that use.
 
-Frame the planning team as a possible later user and the example as a possible application.
+Frame the planning team as a possible later user and the example as a possible application. The map is illustrative and shows no results.
 
 Logical framework, actor analysis
 Thesis proposal

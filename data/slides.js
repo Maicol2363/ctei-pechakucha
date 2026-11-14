@@ -4,7 +4,7 @@ export const presenter = 'Maycol Estiven Fonseca Muñoz'
 export const slides = [
   {
     label: 'Research question', title: 'Municipal food insecurity',
-    kind: 'opening', tone: 'night', cues: [0, 2600],
+    kind: 'opening', tone: 'night', cues: [0, 3200, 6600],
     idea: 'A department average can hide municipal differences.',
     bridge: 'Studies also differ in what they predict.',
   },

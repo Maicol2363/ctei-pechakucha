@@ -1,0 +1,138 @@
+/* Animated Cundinamarca map. Boundaries (DANE 2020) and estimates (DANE FIES 2022) are different layers. */
+.cmap { display: block; width: 100%; height: auto; overflow: visible; }
+.cmap {
+  --map-body: #236a52;
+  --map-pale: #cfe3d8;
+  --map-line: #ffffff;
+  --map-wave: 78ms;
+  --band-0: #feebe1;
+  --band-1: #fdafb7;
+  --band-2: #f668a0;
+  --band-3: #c31b83;
+  --band-4: #79046a;
+  --band-5: #bdbdbd;
+}
+.cmap .cell {
+  fill: var(--map-body);
+  stroke: var(--map-body);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: fill 760ms var(--ease) calc(var(--wave) * var(--map-wave)),
+    stroke 760ms var(--ease) calc(var(--wave) * var(--map-wave)),
+    stroke-width 760ms var(--ease) calc(var(--wave) * var(--map-wave));
+}
+[data-motion=off] .cmap .cell, [data-deck-motion=off] .cmap .cell { transition: none; }
+
+/* stage 1: the single shape resolves into municipal boundaries */
+.cmap[data-variant='cover'][data-stage='1'] .cell, .cmap[data-variant='cover'][data-stage='2'] .cell { fill: var(--map-pale); stroke: var(--map-line); stroke-width: 1.7; }
+/* stage 2: DANE estimate classes (Figure 20 legend) light up in a diagonal wave */
+.cmap[data-variant='cover'][data-stage='2'] .cell[data-k='0'] { fill: var(--band-0); }
+.cmap[data-variant='cover'][data-stage='2'] .cell[data-k='1'] { fill: var(--band-1); }
+.cmap[data-variant='cover'][data-stage='2'] .cell[data-k='2'] { fill: var(--band-2); }
+.cmap[data-variant='cover'][data-stage='2'] .cell[data-k='3'] { fill: var(--band-3); }
+.cmap[data-variant='cover'][data-stage='2'] .cell[data-k='4'] { fill: var(--band-4); }
+.cmap[data-variant='cover'][data-stage='2'] .cell[data-k='5'] { fill: var(--band-5); }
+.cmap[data-variant='cover'][data-stage='2'] .cell { stroke: #fff; stroke-width: 1.1; }
+[data-motion=on] .cmap[data-variant='cover'][data-stage='2'] .cell {
+  animation: cell-pop 820ms var(--ease) calc(var(--wave) * var(--map-wave)) both,
+    cell-shimmer 7.5s ease-in-out calc(3s + var(--wave) * 95ms) infinite;
+}
+@keyframes cell-pop { 0% { transform: scale(.82); } 55% { transform: scale(1.14); } 100% { transform: scale(1); } }
+@keyframes cell-shimmer { 0%, 14%, 100% { opacity: 1; } 5% { opacity: .55; } }
+
+.cmap-bogota { fill: none; stroke: var(--scene-muted, #335d4a); stroke-width: 1.4; stroke-dasharray: 4 4; opacity: 0; transition: opacity 700ms var(--ease) 900ms; }
+.cmap-bogota-label { fill: var(--scene-muted, #335d4a); font: 700 13px var(--sans); text-anchor: middle; opacity: 0; transition: opacity 700ms var(--ease) 1200ms; }
+.cmap:not([data-stage='0']) .cmap-bogota, .cmap:not([data-stage='0']) .cmap-bogota-label { opacity: 1; }
+.cmap[data-stage='0'] .cmap-bogota-label { opacity: 0; }
+
+.cmap-label { pointer-events: none; transition: opacity 600ms var(--ease); }
+.cmap-label text { text-anchor: middle; fill: #fff; }
+.cmap-label .label-main { font: 800 38px var(--sans); letter-spacing: -.02em; }
+.cmap-label .label-sub { font: 650 21px var(--sans); opacity: .86; }
+.cmap:not([data-stage='0']) .cmap-label { opacity: 0; }
+[data-motion=on] .cmap[data-stage='0'] { animation: map-rise 900ms var(--ease) both; }
+@keyframes map-rise { from { opacity: 0; transform: scale(.94) translateY(12px); } to { opacity: 1; transform: none; } }
+
+/* Gacheta locator */
+.cmap[data-variant='locator'] .cell { fill: var(--map-pale); stroke: #fff; stroke-width: 1.6; }
+.cmap[data-variant='locator'] .cell[data-q] { fill: #9e5b15; stroke: #9e5b15; stroke-width: 3; }
+.cmap-pin { pointer-events: none; }
+.pin-dot { fill: #fff; stroke: #9e5b15; stroke-width: 9; }
+.pin-ring { fill: none; stroke: #9e5b15; stroke-width: 8; opacity: 0; transform-box: fill-box; transform-origin: center; }
+[data-motion=on] .pin-ring { animation: pin-ring 2.4s var(--ease) infinite; }
+[data-motion=on] .pin-ring-late { animation-delay: 1.2s; }
+@keyframes pin-ring { 0% { opacity: .9; transform: scale(.35); } 80%, 100% { opacity: 0; transform: scale(2.6); } }
+[data-motion=off] .pin-ring:first-child { opacity: .55; }
+
+/* planning view: illustrative only */
+.cmap[data-variant='plan'] .cell { fill: var(--map-pale); stroke: #fff; stroke-width: 1.6; }
+.cmap[data-variant='plan'][data-stage='2'] .cell { fill: #b9d6c6; }
+.cmap[data-variant='plan'][data-stage='3'] .cell { fill: #b9d6c6; }
+.cmap[data-variant='plan'][data-stage='3'] .cell[data-look] { fill: var(--scene-accent, #236a52); stroke: #fff; }
+[data-motion=on] .cmap[data-variant='plan'][data-stage='3'] .cell {
+  animation: scan-wave 5.5s ease-in-out calc(var(--wave) * 90ms) infinite;
+}
+[data-motion=on] .cmap[data-variant='plan'][data-stage='3'] .cell[data-look] {
+  animation: look-pulse 3s ease-in-out calc(var(--wave) * 90ms) infinite;
+}
+@keyframes scan-wave { 0%, 100% { transform: scale(1); } 6% { transform: scale(1.07); } 12% { transform: scale(1); } }
+@keyframes look-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.22); } }
+.cmap[data-variant='plan'][data-stage='2'] .cell { stroke-dasharray: 4 3; }
+[data-motion=on] .cmap[data-variant='plan'][data-stage='2'] .cell { animation: unsure 2.8s ease-in-out calc(var(--wave) * 70ms) infinite; }
+@keyframes unsure { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+
+/* photo cards */
+.photo-card { display: grid; gap: 8px; min-width: 0; }
+.photo-frame { position: relative; overflow: hidden; border: 1px solid var(--scene-rule); background: var(--scene-tint); aspect-ratio: 16 / 10; }
+.photo-frame > img { display: block; width: 100%; height: 100%; object-fit: cover; transform-origin: 60% 55%; }
+[data-motion=on] .photo-frame > img { animation: photo-drift 18s ease-in-out infinite alternate; }
+@keyframes photo-drift { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.12) translate(-2.2%, -1.6%); } }
+.photo-card figcaption { color: var(--scene-muted); font: 600 13px/1.3 var(--sans); }
+.photo-flag {
+  position: absolute; left: 12px; top: 12px; padding: 6px 11px;
+  background: var(--scene-accent); color: #fff; font: 800 13px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase;
+}
+.photo-locator { position: absolute; left: 12px; bottom: 12px; width: 124px; padding: 7px; background: #fffffff0; border: 1px solid var(--scene-rule); }
+[data-motion=on] .photo-card.is-visible .photo-locator { animation: locator-in 800ms var(--ease) 500ms both; }
+@keyframes locator-in { from { opacity: 0; transform: translateY(14px) scale(.9); } to { opacity: 1; transform: none; } }
+[data-motion=on] .photo-card.is-visible .photo-flag { animation: flag-in 700ms var(--ease) 900ms both; }
+@keyframes flag-in { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: none; } }
+.flow-with-photo { grid-template-columns: minmax(0, 1fr) 470px; align-items: center; gap: 44px; }
+.flow-with-photo .flow-main { display: grid; gap: 30px; min-width: 0; }
+.flow-with-photo .flow-track { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 28px; }
+.flow-with-photo .flow-track li { font-size: 27px; }
+.flow-with-photo .flow-link { width: calc(100% + 28px); }
+
+/* slide 11 */
+.sdg-body:has(.market-card) { grid-template-columns: 250px minmax(0, 1fr) 340px; gap: 40px; align-items: center; }
+.sdg-body:has(.market-card) .sdg-icon { width: 250px; }
+.market-card .photo-frame { aspect-ratio: 1 / 1; }
+.market-card .photo-frame > img { object-position: 56% 70%; }
+.sdg-body:has(.market-card) .sdg-points section > p:last-child { font-size: 28px; }
+
+/* slide 18 */
+.plan-card { display: grid; gap: 8px; width: 100%; padding: 12px 16px 10px; background: #fff; border: 1px solid var(--scene-rule); }
+.plan-card .cmap { width: 228px; margin: 0 auto; }
+.plan-card figcaption { display: grid; gap: 2px; color: var(--scene-muted); font: 600 13px/1.3 var(--sans); text-align: center; }
+.plan-card figcaption b { color: var(--scene-accent); font: 800 19px/1.2 var(--sans); }
+.flow-with-photo:has(.plan-card) { grid-template-columns: minmax(0, 1fr) 360px; }
+.flow-with-photo:has(.plan-card) .flow-track { grid-template-columns: 1fr; row-gap: 14px; }
+.flow-with-photo:has(.plan-card) .flow-track li { padding: 12px 0 8px 28px; border-top: 0; border-left: 2px solid var(--scene-rule); font-size: 30px; }
+.flow-with-photo:has(.plan-card) .track-dot { left: -7px; top: 18px; }
+.flow-with-photo:has(.plan-card) .flow-link { display: none; }
+
+/* slide 10: models narrow to a shortlist, then a versioned model moves on */
+.model-pool { display: flex; gap: 9px; margin-top: 12px; }
+.model-pool i { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--scene-accent); background: transparent; transition: transform 700ms var(--ease), opacity 700ms var(--ease), background-color 500ms; }
+.model-pool.is-filtering i { transition-delay: calc(var(--model) * 160ms); }
+.model-pool.is-filtering i:nth-child(3n + 2) { opacity: .22; transform: translateY(16px) scale(.55); }
+.model-pool.is-filtering i:not(:nth-child(3n + 2)) { background: var(--scene-accent); transform: scale(1.22); }
+[data-motion=on] .model-pool.is-filtering i:not(:nth-child(3n + 2)) { animation: route-node 2.6s ease-out 1.4s infinite; }
+.pool-label, .version-chip { font: 700 17px/1.2 var(--sans); color: var(--scene-accent); opacity: 0; transform: translateY(8px); transition: opacity 600ms var(--ease) 900ms, transform 600ms var(--ease) 900ms; }
+.pool-label.is-on, .version-chip.is-on { opacity: 1; transform: none; }
+.version-chip { justify-self: start; padding: 6px 12px; border: 1.5px solid var(--scene-accent); border-radius: 4px; }
+[data-motion=on] .version-chip.is-on { animation: chip-drop 800ms var(--ease) 500ms both; }
+@keyframes chip-drop { from { opacity: 0; transform: translateY(-26px) scale(.9); } to { opacity: 1; transform: none; } }
+[data-motion=off] .model-pool i, [data-motion=off] .pool-label, [data-motion=off] .version-chip { transition: none; }
