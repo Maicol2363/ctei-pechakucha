@@ -1,0 +1,347 @@
+[
+  {
+    "start": "0:00",
+    "spoken": "A departmental average can hide the picture in a single municipality. I'm Maycol Estiven Fonseca Muñoz. My research question is this. In studies of municipal food insecurity, which criteria guide the selection of predictive models to obtain accurate and interpretable predictions?",
+    "sentences": [
+      "A departmental average can hide the picture in a single municipality.",
+      "I'm Maycol Estiven Fonseca Muñoz.",
+      "My research question is this.",
+      "In studies of municipal food insecurity, which criteria guide the selection of predictive models to obtain accurate and interpretable predictions?"
+    ],
+    "cue": "Show the question, name and Cundinamarca map from the start. Pause before the research question.",
+    "links": [
+      {
+        "label": "Approved question"
+      },
+      {
+        "label": "DANE 2022 municipal bulletin, Figure 20",
+        "url": "https://www.dane.gov.co/files/operaciones/FIES/bol-FIES-Municipal-2022.pdf"
+      }
+    ]
+  },
+  {
+    "start": "0:20",
+    "spoken": "Gubert and colleagues estimated severe food insecurity in Brazilian municipalities. Busker and colleagues forecast food crises in the Horn of Africa. Those studies predict different outcomes on different time scales. That makes it difficult to use their reported performance to choose a model for Cundinamarca.",
+    "sentences": [
+      "Gubert and colleagues estimated severe food insecurity in Brazilian municipalities.",
+      "Busker and colleagues forecast food crises in the Horn of Africa.",
+      "Those studies predict different outcomes on different time scales.",
+      "That makes it difficult to use their reported performance to choose a model for Cundinamarca."
+    ],
+    "cue": "Point to the difference between estimating a period and forecasting what comes next.",
+    "links": [
+      {
+        "label": "Gubert et al.",
+        "url": "https://doi.org/10.37527/2010.60.2.002"
+      },
+      {
+        "label": "Busker et al.",
+        "url": "https://doi.org/10.1029/2023EF004211"
+      }
+    ]
+  },
+  {
+    "start": "0:40",
+    "spoken": "Colombia's national statistics office, DANE, uses statistical models where survey samples are too small for reliable direct estimates. In its municipal bulletin for 2022, DANE flagged Gachetá's estimate for high uncertainty. That example shows why checking a local estimate's quality matters.",
+    "sentences": [
+      "Colombia's national statistics office, DANE, uses statistical models where survey samples are too small for reliable direct estimates.",
+      "In its municipal bulletin for 2022, DANE flagged Gachetá's estimate for high uncertainty.",
+      "That example shows why checking a local estimate's quality matters."
+    ],
+    "cue": "Highlight Gachetá's quality flag. The 30% threshold concerns the uncertainty measure, the logarithmic coefficient of variation. Keep the flagged prevalence off the slide.",
+    "links": [
+      {
+        "label": "DANE 2022 municipal bulletin, Table 26",
+        "url": "https://www.dane.gov.co/files/operaciones/FIES/bol-FIES-Municipal-2022.pdf"
+      }
+    ]
+  },
+  {
+    "start": "1:00",
+    "spoken": "My objective is to establish criteria to guide the selection of predictive models of food insecurity at the municipal level. The aim is to give researchers a way to explain why a model deserves to be tested for a particular local use.",
+    "sentences": [
+      "My objective is to establish criteria to guide the selection of predictive models of food insecurity at the municipal level.",
+      "The aim is to give researchers a way to explain why a model deserves to be tested for a particular local use."
+    ],
+    "cue": "Emphasize why a model deserves testing.",
+    "links": [
+      {
+        "label": "Approved objectives"
+      }
+    ]
+  },
+  {
+    "start": "1:20",
+    "spoken": "First, to identify predictive models used in studies of food insecurity at the municipal level. Second, to analyze model-selection criteria related to data characteristics, performance, and interpretability. Third, to integrate the identified criteria into a model-selection guide for the municipal context of Cundinamarca.",
+    "sentences": [
+      "First, to identify predictive models used in studies of food insecurity at the municipal level.",
+      "Second, to analyze model-selection criteria related to data characteristics, performance, and interpretability.",
+      "Third, to integrate the identified criteria into a model-selection guide for the municipal context of Cundinamarca."
+    ],
+    "cue": "Use three short labels on screen. Identify models. Analyze criteria. Build the guide.",
+    "links": [
+      {
+        "label": "Approved objectives"
+      }
+    ]
+  },
+  {
+    "start": "1:40",
+    "spoken": "I've appraised ten full-text papers in a literature matrix. I recorded what they predict, which data they use, and how they test and explain their models. I distinguish municipal applications from studies at other scales that can help inform the choice of methods.",
+    "sentences": [
+      "I've appraised ten full-text papers in a literature matrix.",
+      "I recorded what they predict, which data they use, and how they test and explain their models.",
+      "I distinguish municipal applications from studies at other scales that can help inform the choice of methods."
+    ],
+    "cue": "Show ten appraisals as work to date and the difference between direct and supplementary evidence.",
+    "links": [
+      {
+        "label": "RAE working workbook"
+      }
+    ]
+  },
+  {
+    "start": "2:00",
+    "spoken": "Foini and colleagues forecast insufficient food consumption. Their model beat the last observed value at longer horizons in Yemen and Syria. That simple baseline did better in the other four countries they studied. Model choice depends on evidence from the conditions where it will be used.",
+    "sentences": [
+      "Foini and colleagues forecast insufficient food consumption.",
+      "Their model beat the last observed value at longer horizons in Yemen and Syria.",
+      "That simple baseline did better in the other four countries they studied.",
+      "Model choice depends on evidence from the conditions where it will be used."
+    ],
+    "cue": "Explain the baseline through the phrase “last observation.” The outcome is insufficient food consumption. Use the result to motivate local evaluation.",
+    "links": [
+      {
+        "label": "Foini et al., results and Figure 3",
+        "url": "https://doi.org/10.1038/s41598-023-29700-y"
+      }
+    ]
+  },
+  {
+    "start": "2:20",
+    "spoken": "I place this study under the university's research line on Learning, Knowledge, Technologies, Communication and Digitalization. It fits that line because I examine how models turn data into evidence and what researchers should check before relying on the results.",
+    "sentences": [
+      "I place this study under the university's research line on Learning, Knowledge, Technologies, Communication and Digitalization.",
+      "It fits that line because I examine how models turn data into evidence and what researchers should check before relying on the results."
+    ],
+    "cue": "Keep the English line name legible and retain the official Spanish name in the source notes.",
+    "links": [
+      {
+        "label": "University research lines",
+        "url": "https://www.ucundinamarca.edu.co/investigacion/index.php/lineas-de-investigacion"
+      }
+    ]
+  },
+  {
+    "start": "2:40",
+    "spoken": "The complementary Engineering line is Software, Emerging Systems and New Technologies. A later system will need to record which data a model uses and which version produced an estimate. The review can help define what should be documented when selecting models for that system.",
+    "sentences": [
+      "The complementary Engineering line is Software, Emerging Systems and New Technologies.",
+      "A later system will need to record which data a model uses and which version produced an estimate.",
+      "The review can help define what should be documented when selecting models for that system."
+    ],
+    "cue": "Show how the selection record connects to a future software requirement.",
+    "links": [
+      {
+        "label": "Engineering complementary lines",
+        "url": "https://www.ucundinamarca.edu.co/investigacion/media/attachments/2022/10/19/facultad-de-ingeniera.pdf"
+      },
+      {
+        "label": "Thesis proposal"
+      }
+    ]
+  },
+  {
+    "start": "3:00",
+    "spoken": "These lines come together in my larger thesis, which proposes a platform to integrate public data and deploy versioned models. This semester focuses on the decision that comes before deployment. The guide would help my thesis team shortlist models and plan how to test them locally.",
+    "sentences": [
+      "These lines come together in my larger thesis, which proposes a platform to integrate public data and deploy versioned models.",
+      "This semester focuses on the decision that comes before deployment.",
+      "The guide would help my thesis team shortlist models and plan how to test them locally."
+    ],
+    "cue": "Give the literature guide and platform separate labels. Shortlisting is the proposed first use of the guide.",
+    "links": [
+      {
+        "label": "Approved objectives"
+      },
+      {
+        "label": "Thesis proposal"
+      }
+    ]
+  },
+  {
+    "start": "3:20",
+    "spoken": "This research connects to Sustainable Development Goal Two, Zero Hunger. Its first target includes access to safe, nutritious and sufficient food. One indicator tracks moderate or severe food insecurity using the Food Insecurity Experience Scale. That gives the monitoring problem a direct connection to the goal.",
+    "sentences": [
+      "This research connects to Sustainable Development Goal Two, Zero Hunger.",
+      "Its first target includes access to safe, nutritious and sufficient food.",
+      "One indicator tracks moderate or severe food insecurity using the Food Insecurity Experience Scale.",
+      "That gives the monitoring problem a direct connection to the goal."
+    ],
+    "cue": "Show the official English icon with Target 2.1 and Indicator 2.1.2.",
+    "links": [
+      {
+        "label": "UN indicator metadata",
+        "url": "https://unstats.un.org/sdgs/metadata?Target=2.1"
+      },
+      {
+        "label": "UN icon",
+        "url": "https://www.un.org/sustainabledevelopment/news/communications-material/"
+      }
+    ]
+  },
+  {
+    "start": "3:40",
+    "spoken": "The contribution is to monitoring. A selection guide would help researchers decide what evidence a model needs before its estimates inform local planning. If later testing supports those estimates, planning teams could use them alongside other evidence when deciding where to investigate needs.",
+    "sentences": [
+      "The contribution is to monitoring.",
+      "A selection guide would help researchers decide what evidence a model needs before its estimates inform local planning.",
+      "If later testing supports those estimates, planning teams could use them alongside other evidence when deciding where to investigate needs."
+    ],
+    "cue": "Trace guide, local validation and potential monitoring use in order.",
+    "links": [
+      {
+        "label": "Approved objectives"
+      },
+      {
+        "label": "DANE municipal methodology and viewer",
+        "url": "https://sitios.dane.gov.co/EstimacionesModeloSAE/"
+      }
+    ]
+  },
+  {
+    "start": "4:00",
+    "spoken": "I conduct the review with academic guidance, using studies and documentation from researchers and DANE. The academic work needs a traceable review. Future municipal users would need clear estimates and limitations. Residents could benefit indirectly if that evidence helps planning teams understand local needs.",
+    "sentences": [
+      "I conduct the review with academic guidance, using studies and documentation from researchers and DANE.",
+      "The academic work needs a traceable review.",
+      "Future municipal users would need clear estimates and limitations.",
+      "Residents could benefit indirectly if that evidence helps planning teams understand local needs."
+    ],
+    "cue": "Distinguish current academic roles, sources, potential users and indirect beneficiaries. Interests and expectations in the map are inferred.",
+    "links": [
+      {
+        "label": "Logical framework, actor analysis"
+      }
+    ]
+  },
+  {
+    "start": "4:20",
+    "spoken": "At the center of the problem tree is the difficulty of justifying a model choice. Its roots are differences in study targets, data and evaluation, plus uncertainty about local fit. The main risk is choosing a model whose reported performance gives us little guidance for Cundinamarca.",
+    "sentences": [
+      "At the center of the problem tree is the difficulty of justifying a model choice.",
+      "Its roots are differences in study targets, data and evaluation, plus uncertainty about local fit.",
+      "The main risk is choosing a model whose reported performance gives us little guidance for Cundinamarca."
+    ],
+    "cue": "Start at the trunk. Read one link from the roots to the branches.",
+    "links": [
+      {
+        "label": "Logical framework, problem tree"
+      }
+    ]
+  },
+  {
+    "start": "4:40",
+    "spoken": "The objective tree turns those difficulties into three steps. I screen studies to build a model inventory. I appraise their methods to assemble a criteria matrix. I assess which criteria apply to Cundinamarca and use them to build the guide.",
+    "sentences": [
+      "The objective tree turns those difficulties into three steps.",
+      "I screen studies to build a model inventory.",
+      "I appraise their methods to assemble a criteria matrix.",
+      "I assess which criteria apply to Cundinamarca and use them to build the guide."
+    ],
+    "cue": "Show representative activities in the roots, objectives in the middle and planned products in the branches.",
+    "links": [
+      {
+        "label": "Logical framework"
+      }
+    ]
+  },
+  {
+    "start": "5:00",
+    "spoken": "An inventory would tell us which models have been used. A local benchmark could test their performance but would require suitable data. I chose a criteria-based literature synthesis because it answers the semester question and can show what that later benchmark should test.",
+    "sentences": [
+      "An inventory would tell us which models have been used.",
+      "A local benchmark could test their performance but would require suitable data.",
+      "I chose a criteria-based literature synthesis because it answers the semester question and can show what that later benchmark should test."
+    ],
+    "cue": "Compare the approaches by what they answer and what they require. The literature synthesis is the selected semester approach.",
+    "links": [
+      {
+        "label": "Approved question and objectives"
+      },
+      {
+        "label": "Project scope"
+      }
+    ]
+  },
+  {
+    "start": "5:20",
+    "spoken": "I expect a model inventory, a matrix linking criteria to studies, and a practical selection guide. One candidate criterion is to check the uncertainty of a municipal prevalence estimate before using it. The synthesis will show where each criterion applies.",
+    "sentences": [
+      "I expect a model inventory, a matrix linking criteria to studies, and a practical selection guide.",
+      "One candidate criterion is to check the uncertainty of a municipal prevalence estimate before using it.",
+      "The synthesis will show where each criterion applies."
+    ],
+    "cue": "Present the three as expected research outputs. The uncertainty check illustrates one possible entry in the guide.",
+    "links": [
+      {
+        "label": "Logical framework"
+      },
+      {
+        "label": "DANE municipal bulletin, Table 26",
+        "url": "https://www.dane.gov.co/files/operaciones/FIES/bol-FIES-Municipal-2022.pdf"
+      }
+    ]
+  },
+  {
+    "start": "5:40",
+    "spoken": "For Cundinamarca, imagine a planning team deciding where to look more closely. A locally tested model could help flag municipalities for further assessment, with uncertainty visible. The guide would give the thesis team a starting point for choosing which model to test for that use.",
+    "sentences": [
+      "For Cundinamarca, imagine a planning team deciding where to look more closely.",
+      "A locally tested model could help flag municipalities for further assessment, with uncertainty visible.",
+      "The guide would give the thesis team a starting point for choosing which model to test for that use."
+    ],
+    "cue": "Frame the planning team as a possible later user and the example as a possible application.",
+    "links": [
+      {
+        "label": "Logical framework, actor analysis"
+      },
+      {
+        "label": "Thesis proposal"
+      }
+    ]
+  },
+  {
+    "start": "6:00",
+    "spoken": "The evidence I've reviewed points to a practical conclusion. The outcome and available data determine which tests are meaningful. The quality of those tests, together with explanations of the predictions, gives us a basis for judging whether a model fits its intended use.",
+    "sentences": [
+      "The evidence I've reviewed points to a practical conclusion.",
+      "The outcome and available data determine which tests are meaningful.",
+      "The quality of those tests, together with explanations of the predictions, gives us a basis for judging whether a model fits its intended use."
+    ],
+    "cue": "Return to the study's three selection dimensions.",
+    "links": [
+      {
+        "label": "Problem statement"
+      },
+      {
+        "label": "RAE working workbook"
+      }
+    ]
+  },
+  {
+    "start": "6:20",
+    "spoken": "Before relying on a municipal prediction, ask what it measures, how it was tested, and how to interpret it. Those questions can guide the next model we evaluate for Cundinamarca and make the evidence easier to use in work toward Zero Hunger.",
+    "sentences": [
+      "Before relying on a municipal prediction, ask what it measures, how it was tested, and how to interpret it.",
+      "Those questions can guide the next model we evaluate for Cundinamarca and make the evidence easier to use in work toward Zero Hunger."
+    ],
+    "cue": "Show the official Goal 2 icon again. Leave room for a short final pause before the run ends at 6:40.",
+    "links": [
+      {
+        "label": "UN Goal 2",
+        "url": "https://sdgs.un.org/goals/goal2"
+      }
+    ]
+  }
+]
