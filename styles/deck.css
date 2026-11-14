@@ -235,7 +235,6 @@ html[data-deck-motion=off] .grid-shift-leave-active { transition: none; }
   border-radius: 50%;
   background: var(--scene-accent);
 }
-[data-motion=on] .track-dot { animation: beacon 3.3s var(--ease) infinite; }
 .local-flag {
   display: flex;
   align-items: center;
@@ -279,7 +278,7 @@ html[data-deck-motion=off] .grid-shift-leave-active { transition: none; }
   font: 700 190px/.93 var(--serif);
   letter-spacing: -.08em;
 }
-.count-stat span { margin-top: 13px; font-size: 27px; font-weight: 740; }
+.count-stat > span { margin-top: 13px; font-size: 27px; font-weight: 740; }
 .count-list li { display: flex; align-items: center; gap: 20px; min-height: 81px; border-bottom: 1px solid var(--scene-rule); font-weight: 740; }
 .count-list i { flex: 0 0 13px; height: 13px; background: var(--scene-accent); border-radius: 50%; }
 [data-motion=on] .count-list i { animation: beacon 4s var(--ease) infinite; }
@@ -441,7 +440,7 @@ html[data-deck-motion=off] .grid-shift-leave-active { transition: none; }
   padding: 7px;
 }
 .study-navigation { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 6px; }
-.study-actions { display: flex; gap: 6px; }
+.study-actions { display: flex; flex-wrap: wrap; gap: 6px; }
 .study-controls button, .study-controls select {
   min-height: 34px;
   padding: 4px 9px;
@@ -457,6 +456,9 @@ html[data-deck-motion=off] .grid-shift-leave-active { transition: none; }
 .study-controls select:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
 .study-controls button[aria-pressed=true] { color: var(--amber); }
 .deck-overlay[data-mode=study] .notes-panel { bottom: auto; max-height: calc(100dvh - 120px); }
+@media (min-aspect-ratio: 3/2) and (min-width: 850px) {
+  .deck-scene[data-study] { padding-bottom: 78px; }
+}
 @media (max-width: 700px) {
   .study-controls { flex-direction: column; width: calc(100vw - 20px); max-width: 430px; gap: 6px; }
   .study-controls select { width: 100%; }

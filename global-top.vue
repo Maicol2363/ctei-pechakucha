@@ -16,10 +16,10 @@ const backupPage = ref(null)
 const active = computed(() => slides[clock.slide - 1])
 const note = computed(() => notes[clock.slide - 1])
 const progress = computed(() => Math.max(0, Math.min(1, clock.elapsed / totalMs)))
+const lastStep = computed(() => active.value.cues.length - 1)
 const noteIndex = computed(() => {
-  if (clock.mode === 'study') return -1
-  const steps = active.value.cues.length
-  return Math.round(clock.step * (note.value.sentences.length - 1) / (steps - 1))
+  if (clock.mode === 'study' && !clock.auto) return -1
+  return Math.round(clock.step * (note.value.sentences.length - 1) / Math.max(1, lastStep.value))
 })
 const totalLabel = formatTime(totalMs)
 const sections = [
@@ -72,7 +72,7 @@ function tick() {
     clock.slide = slide
     clock.step = cueAt(slide, elapsed - (slide - 1) * slotMs)
     if (elapsed >= totalMs) clock.mode = 'finished'
-  } else if (clock.mode === 'review' && clock.auto && !active.value.manualReview) {
+  } else if (clock.auto && (clock.mode === 'study' || (clock.mode === 'review' && !active.value.manualReview))) {
     clock.step = cueAt(clock.slide, now - reviewTime)
   }
   navigate(now)
@@ -107,7 +107,14 @@ function review(slide = 1) {
 function study(slide = clock.slide) {
   backupPage.value = null
   clock.mode = 'study'
-  move(slide, slides[slide - 1].cues.length - 1)
+  clock.auto = true
+  if (clock.slide === slide) clock.replay++
+  move(slide, 0)
+}
+
+function showAllCues() {
+  clock.auto = false
+  clock.step = lastStep.value
 }
 
 function reset() {
@@ -221,7 +228,7 @@ function keydown(event) {
 
 onMounted(() => {
   watchEffect(() => {
-    document.documentElement.dataset.deckMotion = clock.motion && !disabled.value && clock.mode !== 'study' ? 'on' : 'off'
+    document.documentElement.dataset.deckMotion = clock.motion && !disabled.value ? 'on' : 'off'
   })
   if (disabled.value) return
   if (currentPage.value > 1) review(currentPage.value)
@@ -270,7 +277,7 @@ onBeforeUnmount(() => {
         <p>20 slides · 20 seconds each · {{ totalLabel }}</p>
         <div class="start-actions">
           <button type="button" class="primary-action" @click="start">Start presentation <span aria-hidden="true">→</span></button>
-          <button type="button" class="secondary-action" @click="study()">Study mode <span>· No timer</span></button>
+          <button type="button" class="secondary-action" @click="study()">Study mode <span>· Choose a slide</span></button>
         </div>
       </div>
     </div>
@@ -297,15 +304,16 @@ onBeforeUnmount(() => {
         <button type="button" aria-label="Next slide" :disabled="clock.slide === slides.length" @click="next(1)">→</button>
       </div>
       <div class="study-actions">
+        <button type="button" @click="study()">Replay animation</button>
+        <button type="button" @click="showAllCues">Show all</button>
         <button type="button" :aria-pressed="showNotes" @click="showNotes = !showNotes">Speaker notes</button>
-        <button type="button" @click="review(clock.slide)">Rehearse reveals</button>
         <button type="button" @click="reset">Home</button>
       </div>
     </nav>
 
     <aside v-if="showNotes" class="notes-panel" aria-label="Speaker notes">
       <div class="notes-heading">
-        <div><p class="eyebrow">Slide {{ clock.slide }} · {{ clock.mode === 'study' ? 'Study mode' : note.start + ' · 20 seconds' }}</p><h2>{{ active.title }}</h2></div>
+        <div><p class="eyebrow">Slide {{ clock.slide }} · {{ clock.mode === 'study' ? (clock.auto ? `Cue ${clock.step + 1} of ${lastStep + 1}` : 'All cues') : note.start + ' · 20 seconds' }}</p><h2>{{ active.title }}</h2></div>
         <button type="button" aria-label="Close speaker notes" @click="showNotes = false">×</button>
       </div>
       <p class="notes-idea">{{ active.idea }}</p>

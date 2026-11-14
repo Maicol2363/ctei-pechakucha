@@ -10,6 +10,7 @@ export const clock = reactive({
   slide: 1,
   step: 0,
   elapsed: 0,
+  replay: 0,
   motion: new URLSearchParams(window.location.search).get('motion') !== 'off',
   auto: true,
 })

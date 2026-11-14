@@ -35,14 +35,22 @@
   inset: 0;
   pointer-events: none;
   opacity: 0;
-  background: linear-gradient(transparent 44%, #ce9b324a 49%, #f1d48b76 50%, transparent 54%);
+  background: linear-gradient(transparent 39%, #ce9b323e 47%, #f2bd659c 50%, transparent 54%);
 }
-[data-motion=on] .map-scan { animation: map-pass 6.2s var(--ease) 700ms infinite; }
+[data-motion=on] .map-scan { animation: map-pass 5.6s var(--ease) 700ms infinite; }
+[data-motion=on] .map-legend i {
+  animation: legend-pulse 5.6s ease-in-out infinite;
+  animation-delay: calc(1200ms + var(--legend-order) * 210ms);
+}
 @keyframes map-pass {
   0% { opacity: 0; transform: translateY(-57%); }
   13% { opacity: 1; }
   64% { opacity: 0; transform: translateY(54%); }
   100% { opacity: 0; transform: translateY(54%); }
+}
+@keyframes legend-pulse {
+  0%, 20%, 100% { transform: scale(1); }
+  8% { transform: scale(1.55); box-shadow: 0 0 0 2px #172d2826; }
 }
 
 .split-grid section { transition: background-color 320ms var(--ease); overflow: hidden; }
@@ -59,6 +67,7 @@
   font-weight: 740;
 }
 .time-baseline {
+  --timeline-end: 48%;
   position: relative;
   grid-column: 1 / -1;
   height: 14px;
@@ -77,14 +86,33 @@
   width: 51%;
   background: repeating-linear-gradient(90deg, var(--scene-accent) 0 10px, transparent 10px 16px);
 }
+.forecast-timeline .time-baseline { --timeline-end: 100%; }
 .task-timeline:not(.forecast-timeline) .time-baseline b { display: none; }
+.time-playhead {
+  position: absolute;
+  left: var(--timeline-end);
+  bottom: -5px;
+  width: 13px;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border: 2px solid var(--scene-bg);
+  border-radius: 50%;
+  background: var(--scene-accent);
+  box-shadow: 0 0 0 2px var(--scene-rule);
+}
 [data-motion=on] .is-visible .time-baseline i,
 [data-motion=on] .is-visible .time-baseline b {
   transform-origin: left;
   animation: draw-span 900ms var(--ease) 220ms both;
 }
 [data-motion=on] .is-visible .time-baseline b { animation-delay: 860ms; }
+[data-motion=on] .is-visible .time-playhead { animation: timeline-run 2.6s var(--ease) 220ms both; }
 @keyframes draw-span { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes timeline-run {
+  0% { left: 0; box-shadow: 0 0 0 2px var(--scene-rule); }
+  80% { left: var(--timeline-end); box-shadow: 0 0 0 8px var(--scene-rule); }
+  100% { left: var(--timeline-end); box-shadow: 0 0 0 2px var(--scene-rule); }
+}
 .comparison-track { display: flex; align-items: center; gap: 10px; color: var(--scene-accent); font-size: 19px; font-weight: 740; }
 .comparison-mark { width: 11px; height: 11px; border-radius: 50%; background: currentColor; }
 [data-motion=on] .split-focus .comparison-mark { animation: beacon 2.8s var(--ease) infinite; }
@@ -92,8 +120,8 @@
 .flow-link {
   position: absolute;
   top: -2px;
-  left: 100%;
-  width: 38px;
+  left: 0;
+  width: calc(100% + 38px);
   height: 2px;
   background: var(--scene-rule);
   visibility: hidden;
@@ -101,12 +129,13 @@
 .link-ready .flow-link { visibility: visible; }
 .flow-link i {
   position: absolute;
-  left: 0;
-  top: -3px;
-  width: 8px;
-  height: 8px;
+  left: calc(100% - 13px);
+  top: -4px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--scene-accent);
+  box-shadow: 0 0 0 4px var(--scene-rule);
 }
 .flow-link::after {
   content: '';
@@ -119,8 +148,18 @@
   border-top: 2px solid var(--scene-accent);
   transform: rotate(45deg);
 }
-[data-motion=on] .link-ready .flow-link i { animation: route-packet 1.65s var(--ease) infinite; }
-@keyframes route-packet { 0% { transform: translateX(0); opacity: .1; } 25% { opacity: 1; } 95%, 100% { transform: translateX(28px); opacity: 0; } }
+[data-motion=on] .link-ready .flow-link i { animation: route-packet 3.2s ease-in-out infinite; }
+[data-motion=on] .flow-track li:nth-child(2) .flow-link i { animation-delay: 580ms; }
+[data-motion=on] .is-visible > .track-dot { animation: route-node 3.2s ease-out infinite; }
+@keyframes route-packet {
+  0% { left: 0; opacity: 0; }
+  12%, 65% { opacity: 1; }
+  82%, 100% { left: calc(100% - 13px); opacity: 0; }
+}
+@keyframes route-node {
+  0%, 55%, 100% { box-shadow: 0 0 0 0 var(--scene-rule); }
+  40% { box-shadow: 0 0 0 11px transparent; }
+}
 
 .quality-signal {
   display: grid;
@@ -139,6 +178,15 @@
 }
 
 .appraisal-papers { display: flex; gap: 9px; margin-top: 20px; }
+@property --appraisal-total {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 10;
+}
+.appraisal-number { counter-reset: appraisals var(--appraisal-total, 10); font-variant-numeric: tabular-nums; }
+.appraisal-number::after { content: counter(appraisals); }
+[data-motion=on] .appraisal-number { animation: tally 1.4s steps(10, jump-end) 160ms both; }
+@keyframes tally { from { --appraisal-total: 0; } to { --appraisal-total: 10; } }
 .appraisal-papers i {
   width: 15px;
   height: 21px;
@@ -147,22 +195,70 @@
 }
 [data-motion=on] .appraisal-papers i {
   animation: paper-arrive 600ms var(--ease) both;
-  animation-delay: calc(var(--paper-order) * 95ms);
+  animation-delay: calc(160ms + var(--paper-order) * 140ms);
 }
 @keyframes paper-arrive { from { opacity: 0; transform: translateY(13px) rotate(-7deg); } to { opacity: 1; transform: translateY(0); } }
+.deck-rows li { position: relative; }
 .deck-rows .row-focus { box-shadow: inset 4px 0 var(--scene-accent); }
+.deck-rows .row-focus::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--scene-accent), transparent 85%);
+  transform-origin: left;
+}
+[data-motion=on] .deck-rows .row-focus::after { animation: draw-span 1.2s var(--ease) both; }
 .deck-rows .row-focus .row-index { padding-left: 8px; }
 [data-motion=on] .deck-rows .row-focus .row-index { animation: cue-ink 3.2s var(--ease) infinite; }
 @keyframes cue-ink { 0%, 100% { opacity: 1; } 58% { opacity: .56; } }
 .scene-closing .row-focus > span:last-child { color: var(--amber); }
 [data-motion=on] .scene-closing .row-focus > span:last-child { animation: ending-glow 2.2s var(--ease) both; }
 @keyframes ending-glow { 0%, 100% { text-shadow: none; } 55% { text-shadow: 0 0 23px #f2bd6580; } }
+.scene-closing .sdg-icon { position: relative; }
+.closing-orbit { display: none; }
+[data-motion=on] .closing-orbit {
+  position: absolute;
+  display: block;
+  inset: -30px;
+  border: 1px dashed var(--scene-rule);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: closing-orbit 15s linear infinite;
+}
+.closing-orbit i {
+  position: absolute;
+  left: 50%;
+  top: -5px;
+  width: 10px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 19px 4px #f2bd657a;
+}
+.closing-orbit i + i { top: auto; bottom: -4px; opacity: .52; }
+@keyframes closing-orbit { to { transform: rotate(1turn); } }
 
 [data-motion=on] .tree-roots.is-visible li { animation: tree-rise 700ms var(--ease) calc(var(--branch-order) * 145ms) both; }
+.tree-roots::before { height: 2px; }
+.tree-roots li::before, .tree-trunk::before, .tree-trunk::after { width: 2px; }
+[data-motion=on] .tree-roots.is-visible::before { animation: draw-span 950ms var(--ease) 350ms both; }
+[data-motion=on] .tree-roots.is-visible li::before {
+  transform-origin: bottom;
+  animation: draw-stem 400ms var(--ease) calc(650ms + var(--branch-order) * 145ms) both;
+}
+[data-motion=on][data-step='3'] .tree-trunk::before {
+  transform-origin: bottom;
+  animation: draw-stem 650ms var(--ease) both;
+}
 [data-motion=on] .objective-tree .is-visible > * { animation: tree-rise 700ms var(--ease) both; }
-[data-motion=on] .objective-tree .is-visible > strong { animation-delay: 240ms; }
-[data-motion=on] .objective-tree .is-visible > .product { animation-delay: 480ms; }
+[data-motion=on] .objective-tree .is-visible > strong { animation-delay: 420ms; }
+[data-motion=on] .objective-tree .is-visible > .product { animation-delay: 850ms; }
+[data-motion=on] .objective-tree .is-visible > *:not(:first-child)::before { animation: arrow-rise 450ms var(--ease) both; }
+[data-motion=on] .objective-tree .is-visible > strong::before { animation-delay: 430ms; }
 @keyframes tree-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes draw-stem { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes arrow-rise { 0% { transform: translateY(10px); opacity: .25; } 60% { transform: translateY(-3px); } }
 
 .deck-progress { display: flex; gap: 2px; height: 5px; background: var(--deep); }
 .progress-section { background: #90a49d83; min-width: 0; }

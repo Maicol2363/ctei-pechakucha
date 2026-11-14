@@ -1,6 +1,6 @@
 # CTeI 1 PechaKucha
 
-Choose **Start presentation** for the 6-minute-40-second run, or **Study mode** to choose any of the 20 slides and read it at your own pace. In Study mode, each slide appears fully revealed and the timer stops. The **Study mode** button is also available during a timed run. To practice the timed reveals on a single slide, choose **Rehearse reveals** from the study controls.
+Choose **Start presentation** for the 6-minute-40-second run. In **Study mode**, pick any slide to play its animations from the first cue. The deck stays on that slide until you choose another. Use **Replay animation** to start the slide again, **Show all** to jump to its final cue, or **Speaker notes** to read along with the current cue. You can also enter Study mode during a timed run.
 
 ## Run locally
 

@@ -22,11 +22,13 @@ const flowKinds = ['flow', 'local', 'local-impact']
 
 <template>
   <article
+    :key="clock.replay"
     class="deck-scene"
     :class="['tone-' + (slide.tone || 'paper'), 'scene-' + slide.kind]"
     :data-slide="number"
     :data-step="step"
-    :data-motion="clock.motion && !still && clock.slide === number && !['ready', 'study'].includes(clock.mode) ? 'on' : 'off'"
+    :data-study="!still && clock.mode === 'study' || undefined"
+    :data-motion="clock.motion && !still && clock.slide === number && clock.mode !== 'ready' ? 'on' : 'off'"
   >
     <div class="scene-field" aria-hidden="true">
       <span class="field-grid" />
@@ -56,7 +58,7 @@ const flowKinds = ['flow', 'local', 'local-impact']
           <span class="map-scan" aria-hidden="true" />
           <div class="map-legend">
             <span v-for="(label, index) in legend" :key="label">
-              <i :style="{ backgroundColor: colors[index] }" />{{ label }}
+              <i :style="{ backgroundColor: colors[index], '--legend-order': index }" />{{ label }}
             </span>
           </div>
         </div>
@@ -71,7 +73,7 @@ const flowKinds = ['flow', 'local', 'local-impact']
           <h2>{{ title }}</h2>
           <p>{{ detail }}</p>
           <div v-if="number === 2" class="task-timeline" :class="{ 'forecast-timeline': index === 1 }">
-            <span class="time-baseline" aria-hidden="true"><i /><b /></span>
+            <span class="time-baseline" aria-hidden="true"><i /><b /><span class="time-playhead" /></span>
             <small>{{ index === 0 ? 'Reference period' : 'Observed period' }}</small>
             <small v-if="index === 1">Future period</small>
           </div>
@@ -131,7 +133,7 @@ const flowKinds = ['flow', 'local', 'local-impact']
 
     <div v-else-if="slide.kind === 'count'" class="count-body">
       <div class="count-stat" :class="reveal(0)">
-        <strong>10</strong>
+        <strong><span class="sr-only">10</span><span class="appraisal-number" aria-hidden="true" /></strong>
         <span>Full-text appraisals</span>
         <div class="appraisal-papers" aria-hidden="true">
           <i v-for="index in 10" :key="index" :style="{ '--paper-order': index }" />
@@ -183,6 +185,7 @@ const flowKinds = ['flow', 'local', 'local-impact']
         </li>
       </ol>
       <figure class="sdg-icon" :class="reveal(0)">
+        <span class="closing-orbit" aria-hidden="true"><i /><i /></span>
         <img :src="zeroHunger" alt="United Nations Sustainable Development Goal 2, Zero Hunger">
       </figure>
     </div>
