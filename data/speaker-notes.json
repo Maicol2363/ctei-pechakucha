@@ -83,7 +83,7 @@
       "My objective is to establish criteria to guide the selection of predictive models of food insecurity at the municipal level.",
       "The aim is to give researchers a way to explain why a model deserves to be tested for a particular local use."
     ],
-    "cue": "Emphasize why a model deserves testing.",
+    "cue": "Let the arrow land in the bullseye when you say why a model deserves testing. Emphasize why a model deserves testing.",
     "links": [
       {
         "label": "Approved objectives"
@@ -98,7 +98,7 @@
       "Second, to analyze model-selection criteria related to data characteristics, performance, and interpretability.",
       "Third, to integrate the identified criteria into a model-selection guide for the municipal context of Cundinamarca."
     ],
-    "cue": "Use three short labels on screen. Identify models. Analyze criteria. Build the guide.",
+    "cue": "A magnifier, sliders and a guide page mark the three steps; a dot runs down the rail between them. Use three short labels on screen. Identify models. Analyze criteria. Build the guide.",
     "links": [
       {
         "label": "Approved objectives"
@@ -144,7 +144,7 @@
       "I place this study under the university's research line on Learning, Knowledge, Technologies, Communication and Digitalization.",
       "It fits that line because I examine how models turn data into evidence and what researchers should check before relying on the results."
     ],
-    "cue": "Keep the English line name legible and retain the official Spanish name in the source notes.",
+    "cue": "Data, model and evidence icons draw in one by one. Keep the English line name legible and retain the official Spanish name in the source notes.",
     "links": [
       {
         "label": "University research lines",
@@ -160,7 +160,7 @@
       "A later system will need to record which data a model uses and which version produced an estimate.",
       "The review can help define what should be documented when selecting models for that system."
     ],
-    "cue": "Show how the selection record connects to a future software requirement.",
+    "cue": "Input file, version tag and trace icons draw in one by one. Show how the selection record connects to a future software requirement.",
     "links": [
       {
         "label": "Engineering complementary lines",
@@ -222,7 +222,7 @@
       "A selection guide would help researchers decide what evidence a model needs before its estimates inform local planning.",
       "If later testing supports those estimates, planning teams could use them alongside other evidence when deciding where to investigate needs."
     ],
-    "cue": "Trace guide, local validation and potential monitoring use in order.",
+    "cue": "Checklist, gauge and map-pin icons mark the three steps. Trace guide, local validation and potential monitoring use in order.",
     "links": [
       {
         "label": "Approved objectives"
@@ -242,7 +242,7 @@
       "Future municipal users would need clear estimates and limitations.",
       "Residents could benefit indirectly if that evidence helps planning teams understand local needs."
     ],
-    "cue": "Distinguish current academic roles, sources, potential users and indirect beneficiaries. Interests and expectations in the map are inferred.",
+    "cue": "Icons for the researcher, sources, planning teams and residents sit on one rail; a dot carries the evidence down it. Distinguish current academic roles, sources, potential users and indirect beneficiaries. Interests and expectations in the map are inferred.",
     "links": [
       {
         "label": "Logical framework, actor analysis"
@@ -257,7 +257,7 @@
       "The roots are differences in study targets, data and evaluation, plus uncertain local fit.",
       "Foini and colleagues showed the risk: a model that wins in one setting can lose in another."
     ],
-    "cue": "Start at the trunk. Read one link from the roots to the branches.",
+    "cue": "Icons mark the three roots and the potential effect. Start at the trunk. Read one link from the roots to the branches.",
     "links": [
       {
         "label": "Logical framework, problem tree"
@@ -273,7 +273,7 @@
       "I appraise their methods to assemble a criteria matrix.",
       "I assess which criteria apply to Cundinamarca and use them to build the guide."
     ],
-    "cue": "Show representative activities in the roots, objectives in the middle and planned products in the branches.",
+    "cue": "Icons mark each activity and each product. Show representative activities in the roots, objectives in the middle and planned products in the branches.",
     "links": [
       {
         "label": "Logical framework"
@@ -288,7 +288,7 @@
       "A local benchmark, like Foini and colleagues' baseline comparison, would test performance but needs suitable data.",
       "I chose a criteria-based literature synthesis because it answers the semester question and shows what that benchmark should test."
     ],
-    "cue": "Compare the approaches by what they answer and what they require. The literature synthesis is the selected semester approach.",
+    "cue": "At the last cue the two alternatives dim, the benchmark shows a lock for its data need, and the synthesis gets a check. Compare the approaches by what they answer and what they require. The literature synthesis is the selected semester approach.",
     "links": [
       {
         "label": "Approved question and objectives"

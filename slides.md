@@ -72,7 +72,7 @@ Gachetá photo, Click1master, CC BY 4.0 (https://commons.wikimedia.org/wiki/File
 <!--
 My objective is to establish criteria to guide the selection of predictive models of food insecurity at the municipal level. The aim is to give researchers a way to explain why a model deserves to be tested for a particular local use.
 
-Emphasize why a model deserves testing.
+Let the arrow land in the bullseye when you say why a model deserves testing. Emphasize why a model deserves testing.
 
 Approved objectives
 -->
@@ -86,7 +86,7 @@ Approved objectives
 <!--
 First, to identify predictive models used in studies of food insecurity at the municipal level. Second, to analyze model-selection criteria related to data characteristics, performance, and interpretability. Third, to integrate the identified criteria into a model-selection guide for the municipal context of Cundinamarca.
 
-Use three short labels on screen. Identify models. Analyze criteria. Build the guide.
+A magnifier, sliders and a guide page mark the three steps; a dot runs down the rail between them. Use three short labels on screen. Identify models. Analyze criteria. Build the guide.
 
 Approved objectives
 -->
@@ -128,7 +128,7 @@ Foini et al., results and Figure 3 (https://doi.org/10.1038/s41598-023-29700-y)
 <!--
 I place this study under the university's research line on Learning, Knowledge, Technologies, Communication and Digitalization. It fits that line because I examine how models turn data into evidence and what researchers should check before relying on the results.
 
-Keep the English line name legible and retain the official Spanish name in the source notes.
+Data, model and evidence icons draw in one by one. Keep the English line name legible and retain the official Spanish name in the source notes.
 
 Official research line · Aprendizaje, conocimiento, tecnologías, comunicación y digitalización.
 
@@ -144,7 +144,7 @@ University research lines (https://www.ucundinamarca.edu.co/investigacion/index.
 <!--
 The complementary Engineering line is Software, Emerging Systems and New Technologies. A later system will need to record which data a model uses and which version produced an estimate. The review can help define what should be documented when selecting models for that system.
 
-Show how the selection record connects to a future software requirement.
+Input file, version tag and trace icons draw in one by one. Show how the selection record connects to a future software requirement.
 
 Official name as listed by the faculty · Software, sistema emergentes y nuevas tecnologías.
 
@@ -194,7 +194,7 @@ Cachipay market photo, Jairud, CC BY-SA 4.0 (https://commons.wikimedia.org/wiki/
 <!--
 The contribution is to monitoring. A selection guide would help researchers decide what evidence a model needs before its estimates inform local planning. If later testing supports those estimates, planning teams could use them alongside other evidence when deciding where to investigate needs.
 
-Trace guide, local validation and potential monitoring use in order.
+Checklist, gauge and map-pin icons mark the three steps. Trace guide, local validation and potential monitoring use in order.
 
 Approved objectives
 DANE municipal methodology and viewer (https://sitios.dane.gov.co/EstimacionesModeloSAE/)
@@ -209,7 +209,7 @@ DANE municipal methodology and viewer (https://sitios.dane.gov.co/EstimacionesMo
 <!--
 I conduct the review with academic guidance, using studies and documentation from researchers and DANE. The academic work needs a traceable review. Future municipal users would need clear estimates and limitations. Residents could benefit indirectly if that evidence helps planning teams understand local needs.
 
-Distinguish current academic roles, sources, potential users and indirect beneficiaries. Interests and expectations in the map are inferred.
+Icons for the researcher, sources, planning teams and residents sit on one rail; a dot carries the evidence down it. Distinguish current academic roles, sources, potential users and indirect beneficiaries. Interests and expectations in the map are inferred.
 
 Logical framework, actor analysis
 -->
@@ -223,7 +223,7 @@ Logical framework, actor analysis
 <!--
 At the trunk of the problem tree is the difficulty of justifying a model choice. The roots are differences in study targets, data and evaluation, plus uncertain local fit. Foini and colleagues showed the risk: a model that wins in one setting can lose in another.
 
-Start at the trunk. Read one link from the roots to the branches.
+Icons mark the three roots and the potential effect. Start at the trunk. Read one link from the roots to the branches.
 
 Logical framework, problem tree
 -->
@@ -237,7 +237,7 @@ Logical framework, problem tree
 <!--
 The objective tree turns those difficulties into three steps. I screen studies to build a model inventory. I appraise their methods to assemble a criteria matrix. I assess which criteria apply to Cundinamarca and use them to build the guide.
 
-Show representative activities in the roots, objectives in the middle and planned products in the branches.
+Icons mark each activity and each product. Show representative activities in the roots, objectives in the middle and planned products in the branches.
 
 Logical framework
 -->
@@ -251,7 +251,7 @@ Logical framework
 <!--
 An inventory would tell us which models have been used. A local benchmark, like Foini and colleagues' baseline comparison, would test performance but needs suitable data. I chose a criteria-based literature synthesis because it answers the semester question and shows what that benchmark should test.
 
-Compare the approaches by what they answer and what they require. The literature synthesis is the selected semester approach.
+At the last cue the two alternatives dim, the benchmark shows a lock for its data need, and the synthesis gets a check. Compare the approaches by what they answer and what they require. The literature synthesis is the selected semester approach.
 
 Approved question and objectives
 Project scope

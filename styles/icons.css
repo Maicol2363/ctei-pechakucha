@@ -1,0 +1,89 @@
+/* Line icons, the slide 4 target, and the motion that goes with them. */
+.ico { display: block; width: 52px; height: 52px; overflow: visible; color: var(--scene-accent); }
+.ico * { stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; }
+.is-visible .ico * { stroke-dashoffset: 0; opacity: 1; transition: stroke-dashoffset 1000ms var(--ease) 350ms, opacity 200ms linear 350ms; }
+[data-motion=off] .ico *, .deck-scene:not([data-motion=on]) .ico * { stroke-dasharray: none; stroke-dashoffset: 0; opacity: 1; transition: none; }
+
+@keyframes icon-bob { from { transform: translateY(0); } to { transform: translateY(-5px); } }
+@keyframes icon-glow { 0%, 100% { filter: drop-shadow(0 0 0 transparent); } 50% { filter: drop-shadow(0 0 9px color-mix(in srgb, var(--scene-accent) 70%, transparent)); } }
+
+/* slides 8, 9 and 12 */
+.flow-icon { box-sizing: border-box; width: 92px; height: 92px; padding: 21px; margin-bottom: 6px; border-radius: 50%; background: color-mix(in srgb, var(--scene-accent) 13%, transparent); box-shadow: 0 0 0 2px var(--scene-rule); }
+[data-motion=on] .flow-track li.is-visible .flow-icon { animation: icon-bob 3.4s ease-in-out 1.4s infinite alternate; }
+[data-motion=on] .flow-track li:nth-child(2) .flow-icon { animation-delay: 1.9s; }
+[data-motion=on] .flow-track li:nth-child(3) .flow-icon { animation-delay: 2.4s; }
+[data-motion=on] .deck-scene[data-step='3'] .flow-track li:last-child .flow-icon { animation: icon-bob 3.4s ease-in-out 1.4s infinite alternate, icon-glow 2.4s ease-in-out 1.6s infinite; }
+.flow-with-photo .flow-icon { display: none; }
+
+/* slides 5, 13 and 16: an icon at the end of each row */
+.deck-scene:is([data-slide='5'], [data-slide='13'], [data-slide='16']) .deck-rows li { grid-template-columns: 56px minmax(0, 1fr) minmax(0, 1.28fr) 72px; }
+.row-icon { position: relative; justify-self: end; width: 64px; height: 64px; }
+.row-icon > .ico { width: 64px; height: 64px; }
+/* a rail joins the icons; a dot runs along it */
+.deck-scene:is([data-slide='5'], [data-slide='13']) .deck-rows li:not(:last-child) .row-icon::after {
+  content: ''; position: absolute; left: 50%; top: calc(100% + 4px); width: 2px; height: 30px; margin-left: -1px;
+  background: var(--scene-rule);
+}
+[data-motion=on] .deck-scene:is([data-slide='5'], [data-slide='13']) .deck-rows li:not(:last-child) .row-icon::before {
+  content: ''; position: absolute; z-index: 1; left: 50%; top: calc(100% + 4px); width: 8px; height: 8px; margin-left: -4px; border-radius: 50%;
+  background: var(--scene-accent); animation: rail-dot 1.8s ease-in-out infinite;
+}
+@keyframes rail-dot { 0% { transform: translateY(0); opacity: 0; } 20%, 70% { opacity: 1; } 100% { transform: translateY(32px); opacity: 0; } }
+[data-motion=on] .icon-magnifier .ico { animation: lens-sweep 3.2s ease-in-out infinite alternate; }
+@keyframes lens-sweep { from { transform: translate(-5px, 3px) rotate(-6deg); } to { transform: translate(5px, -3px) rotate(6deg); } }
+.icon-sliders circle { transform-box: fill-box; transform-origin: center; }
+[data-motion=on] .icon-sliders circle:nth-of-type(1) { animation: knob-a 3.6s ease-in-out infinite alternate; }
+[data-motion=on] .icon-sliders circle:nth-of-type(2) { animation: knob-b 3.1s ease-in-out infinite alternate; }
+[data-motion=on] .icon-sliders circle:nth-of-type(3) { animation: knob-c 4.1s ease-in-out infinite alternate; }
+@keyframes knob-a { to { transform: translateX(14px); } }
+@keyframes knob-b { to { transform: translateX(-12px); } }
+@keyframes knob-c { to { transform: translateX(13px); } }
+[data-motion=on] .icon-gauge path:nth-of-type(2) { transform-box: view-box; transform-origin: 24px 36px; animation: needle 3.4s ease-in-out infinite alternate; }
+@keyframes needle { from { transform: rotate(-38deg); } to { transform: rotate(34deg); } }
+[data-motion=on] .deck-scene[data-slide='5'][data-step='3'] .icon-guide .ico { animation: icon-glow 2.2s ease-in-out infinite; }
+[data-motion=on] .deck-scene[data-slide='13'][data-step='4'] .deck-rows li:last-child .ico { animation: icon-glow 2.2s ease-in-out infinite; }
+.deck-scene[data-slide='13'] .row-icon { width: 54px; height: 54px; }
+.deck-scene[data-slide='13'] .row-icon > .ico { width: 54px; height: 54px; }
+
+/* slide 16: the semester approach is chosen, the others step back */
+.icon-lock { position: absolute; right: -12px; bottom: -8px; width: 24px; height: 24px; padding: 3px; border-radius: 50%; background: var(--scene-bg); color: var(--ochre); }
+.chosen-check {
+  position: absolute; right: -14px; top: -14px; display: grid; place-items: center; width: 30px; height: 30px;
+  border-radius: 50%; background: var(--scene-accent); transform: scale(0); transition: transform 500ms var(--ease) 700ms;
+}
+.chosen-check .ico { width: 18px; height: 18px; color: #fff; }
+.deck-scene[data-slide='16'][data-step='3'] .chosen-check { transform: scale(1); }
+.deck-scene[data-slide='16'] .deck-rows li:not(.selected-row) > * { transition: opacity 600ms var(--ease) 500ms; }
+.deck-scene[data-slide='16'][data-step='3'] .deck-rows li:not(.selected-row) > * { opacity: .42; }
+[data-motion=on] .deck-scene[data-slide='16'][data-step='3'] .selected-row .row-icon > .ico { animation: icon-glow 2.2s ease-in-out 1.2s infinite; }
+[data-motion=off] .chosen-check, [data-motion=off] .deck-scene[data-slide='16'] .deck-rows li > * { transition: none; }
+
+/* slide 4: criteria hit the target */
+.deck-scene[data-slide='4'] .statement-body { position: relative; }
+.deck-scene[data-slide='4'] .statement-body h2 { max-width: 740px; }
+.target-art { position: absolute; inset: 0 0 0 auto; margin-block: auto; height: max-content; width: 300px; display: grid; gap: 6px; justify-items: center; }
+.target-art svg { display: block; width: 100%; height: auto; overflow: visible; }
+.target-art .ring { fill: none; stroke: var(--scene-accent); stroke-width: 3; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.is-visible.target-art .ring { stroke-dashoffset: 0; transition: stroke-dashoffset 1100ms var(--ease) 250ms; }
+.target-art .ring-2 { opacity: .75; } .target-art .ring-3 { opacity: .55; }
+.target-art .ring-core { fill: var(--scene-accent); transform-box: fill-box; transform-origin: center; transform: scale(0); transition: transform 500ms var(--ease) 650ms; }
+.target-art[data-hit] .ring-core { transform: scale(1); }
+.target-art .hit-pulse { fill: none; stroke: var(--scene-accent); stroke-width: 3; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.target-art .arrow path { fill: none; stroke: var(--scene-ink); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.target-art .arrow { opacity: 0; transform: translate(150px, -150px); transition: transform 700ms var(--ease), opacity 250ms linear; }
+.target-art[data-hit] .arrow { opacity: 1; transform: translate(0, 0); }
+.target-art figcaption { color: var(--scene-accent); font: 750 18px/1.2 var(--sans); opacity: 0; transition: opacity 500ms var(--ease) 900ms; }
+.target-art figcaption.is-on { opacity: 1; }
+[data-motion=on] .target-art[data-hit] .hit-pulse { animation: hit-pulse 2.4s var(--ease) 700ms infinite; }
+@keyframes hit-pulse { 0% { opacity: .9; transform: scale(1); } 80%, 100% { opacity: 0; transform: scale(5.5); } }
+[data-motion=on] .target-art.is-visible svg { animation: target-breathe 5s ease-in-out infinite alternate; }
+@keyframes target-breathe { to { transform: rotate(4deg) scale(1.03); } }
+[data-motion=off] .target-art .ring { stroke-dashoffset: 0; transition: none; }
+[data-motion=off] .target-art .ring-core, [data-motion=off] .target-art .arrow, [data-motion=off] .target-art figcaption { transition: none; }
+
+/* slides 14 and 15 */
+.tree-icon { width: 42px; height: 42px; margin: 0 auto 4px; }
+.tree-branch .tree-icon { margin-bottom: 0; }
+.objective-tree li > :is(.product, .activity) { display: flex; gap: 10px; align-items: center; justify-content: center; font-size: 21px; }
+.objective-tree .tree-icon { flex: none; width: 36px; height: 36px; margin: 0; }
+[data-motion=on] .deck-scene[data-step='3']:is(.scene-problem, .scene-objectives) .tree-icon { animation: icon-glow 2.6s ease-in-out infinite; }

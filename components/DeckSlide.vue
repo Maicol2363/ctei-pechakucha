@@ -5,6 +5,7 @@ import { clock, staticView } from '../clock.js'
 import { presenter, question, slides } from '../data/slides.js'
 import zeroHunger from '../assets/sdg2.png'
 import MunicipalMap from './MunicipalMap.vue'
+import DeckIcon from './DeckIcon.vue'
 import { outlines } from '../data/study-outlines.js'
 import gachetaPhoto from '../assets/gacheta-plaza.jpg'
 import cachipayPhoto from '../assets/cachipay-market.jpg'
@@ -29,6 +30,12 @@ for (let y = 12; y < outlines.brazil.h; y += 24) {
 // Slide 6: the ten full-text appraisals recorded in the RAE workbook.
 const appraised = ['Tomes 2025', 'Busker 2024', 'Westerveld 2021', 'Lentz 2019', 'Gholami 2022', 'Gubert 2010', 'Pyne 2023', 'Balashankar 2023', 'Herteux 2024', 'Foini 2023']
 // Slide 7: the six countries in Foini et al. Forecast beat the last observed value in Syria and Yemen only.
+// Icons for the slides that carry symbols instead of text-only rows.
+const flowIcons = { 8: ['database', 'nodes', 'chart'], 9: ['paper', 'tag', 'trace'], 12: ['checklist', 'gauge', 'pin'] }
+const rowIcons = { 5: ['magnifier', 'sliders', 'guide'], 13: ['person', 'books', 'townhall', 'houses'], 16: ['list', 'gauge', 'grid'] }
+const treeIcons = ['target', 'database', 'pin']
+const activityIcons = ['magnifier', 'sliders', 'pin']
+const productIcons = ['list', 'grid', 'guide']
 const countries = [['Syria', true], ['Yemen', true], ['Burkina Faso', false], ['Cameroon', false], ['Mali', false], ['Nigeria', false]]
 </script>
 
@@ -137,6 +144,7 @@ const countries = [['Syria', true], ['Yemen', true], ['Burkina Faso', false], ['
           >
             <span class="track-dot" aria-hidden="true" />
             <span v-if="index < slide.items.length - 1" class="flow-link" aria-hidden="true"><i /></span>
+            <DeckIcon v-if="flowIcons[number]" class="flow-icon" :name="flowIcons[number][index]" />
             <span v-if="Array.isArray(item)" class="eyebrow">{{ item[0] }}</span>
             <strong>{{ Array.isArray(item) ? item[1] : item }}</strong>
             <span v-if="number === 10 && index === 1" class="model-pool" :class="{ 'is-filtering': step >= 2 }" aria-hidden="true">
@@ -172,6 +180,21 @@ const countries = [['Syria', true], ['Yemen', true], ['Burkina Faso', false], ['
     </div>
 
     <div v-else-if="slide.kind === 'statement'" class="statement-body">
+      <figure class="target-art" :class="reveal(1)" :data-hit="step >= 2 || undefined" aria-hidden="true">
+        <svg viewBox="0 0 300 300">
+          <circle pathLength="1" class="ring ring-1" cx="150" cy="150" r="126" />
+          <circle pathLength="1" class="ring ring-2" cx="150" cy="150" r="88" />
+          <circle pathLength="1" class="ring ring-3" cx="150" cy="150" r="50" />
+          <circle class="ring-core" cx="150" cy="150" r="17" />
+          <circle class="hit-pulse" cx="150" cy="150" r="17" />
+          <g class="arrow">
+            <path d="M150 150L282 20" />
+            <path d="M150 150l25-6M150 150l6-25" />
+            <path d="M268 34l18-3M268 34l3-18M254 48l18-3M254 48l3-18" />
+          </g>
+        </svg>
+        <figcaption :class="{ 'is-on': step >= 2 }">Criteria for model choice</figcaption>
+      </figure>
       <h2 :class="reveal(1)">{{ slide.items[0] }}</h2>
       <div :class="reveal(2)" class="statement-line">
         <span>{{ slide.items[1] }}</span>
@@ -188,6 +211,11 @@ const countries = [['Syria', true], ['Yemen', true], ['Burkina Faso', false], ['
         >
           <span class="row-index" aria-hidden="true">{{ serial(index + 1) }}</span>
           <strong>{{ title }}</strong><span class="row-detail">{{ detail }}</span>
+          <span v-if="rowIcons[number]" class="row-icon" :class="'icon-' + rowIcons[number][index]">
+            <DeckIcon :name="rowIcons[number][index]" />
+            <DeckIcon v-if="number === 16 && index === 1" class="icon-lock" name="lock" />
+            <span v-if="number === 16 && index === 2" class="chosen-check" aria-hidden="true"><DeckIcon name="check" /></span>
+          </span>
         </li>
       </ol>
       <p v-if="slide.takeaway && number !== 17" class="takeaway" :class="reveal(slide.items.length + 1)">{{ slide.takeaway }}</p>
@@ -249,11 +277,11 @@ const countries = [['Syria', true], ['Yemen', true], ['Burkina Faso', false], ['
 
     <div v-else-if="slide.kind === 'problem'" class="problem-body">
       <div class="tree-branch" :class="reveal(3)">
-        <p class="eyebrow">Potential effect</p><p>Choice with weak evidence of local fit</p>
+        <DeckIcon class="tree-icon" name="alert" /><p class="eyebrow">Potential effect</p><p>Choice with weak evidence of local fit</p>
       </div>
       <div class="tree-trunk" :class="reveal(1)">{{ slide.takeaway }}</div>
       <ul class="tree-roots" :class="reveal(2)">
-        <li v-for="(item, index) in slide.items" :key="item" :style="{ '--branch-order': index }">{{ item }}</li>
+        <li v-for="(item, index) in slide.items" :key="item" :style="{ '--branch-order': index }"><DeckIcon class="tree-icon" :name="treeIcons[index]" />{{ item }}</li>
       </ul>
     </div>
 
@@ -263,7 +291,7 @@ const countries = [['Syria', true], ['Yemen', true], ['Burkina Faso', false], ['
       </div>
       <ol class="objective-tree">
         <li v-for="([activity, objective, product], index) in slide.items" :key="objective" :class="reveal(index + 1)">
-          <span class="product">{{ product }}</span><strong>{{ objective }}</strong><span class="activity">{{ activity }}</span>
+          <span class="product"><DeckIcon class="tree-icon" :name="productIcons[index]" />{{ product }}</span><strong>{{ objective }}</strong><span class="activity"><DeckIcon class="tree-icon" :name="activityIcons[index]" />{{ activity }}</span>
         </li>
       </ol>
     </div>
