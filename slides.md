@@ -221,7 +221,7 @@ Logical framework, actor analysis
 <DeckSlide :number="14" />
 
 <!--
-At the center of the problem tree is the difficulty of justifying a model choice. Its roots are differences in study targets, data and evaluation, plus uncertainty about local fit. The main risk is choosing a model whose reported performance gives us little guidance for Cundinamarca.
+At the trunk of the problem tree is the difficulty of justifying a model choice. The roots are differences in study targets, data and evaluation, plus uncertain local fit. Foini and colleagues showed the risk: a model that wins in one setting can lose in another.
 
 Start at the trunk. Read one link from the roots to the branches.
 
@@ -249,7 +249,7 @@ Logical framework
 <DeckSlide :number="16" />
 
 <!--
-An inventory would tell us which models have been used. A local benchmark could test their performance but would require suitable data. I chose a criteria-based literature synthesis because it answers the semester question and can show what that later benchmark should test.
+An inventory would tell us which models have been used. A local benchmark, like Foini and colleagues' baseline comparison, would test performance but needs suitable data. I chose a criteria-based literature synthesis because it answers the semester question and shows what that benchmark should test.
 
 Compare the approaches by what they answer and what they require. The literature synthesis is the selected semester approach.
 
@@ -309,7 +309,7 @@ RAE working workbook
 <DeckSlide :number="20" />
 
 <!--
-Before relying on a municipal prediction, ask what it measures, how it was tested, and how to interpret it. Those questions can guide the next model we evaluate for Cundinamarca and make the evidence easier to use in work toward Zero Hunger.
+Before relying on a municipal prediction, ask three things. What does it measure? How was it tested? How do we interpret it? Those questions can guide the next model we evaluate for Cundinamarca, and the work toward Zero Hunger.
 
 Light the map one question at a time. Gachetá lights last. Show the official Goal 2 icon again. Leave room for a short final pause before the run ends at 6:40.
 
