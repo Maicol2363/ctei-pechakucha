@@ -100,7 +100,7 @@ Approved objectives
 <!--
 I've appraised ten full-text papers in a literature matrix. I recorded what they predict, which data they use, and how they test and explain their models. I distinguish municipal applications from studies at other scales that can help inform the choice of methods.
 
-Ten appraisals land as rows, then the three criteria fill in as columns. Show ten appraisals as work to date and the difference between direct and supplementary evidence.
+The world map shows where the studies were run: Malawi (three), Ethiopia, Mali, Nigeria, Syria and Yemen (two each), and Kenya, Somalia, Brazil, India, Burkina Faso and Cameroon (one each). Balashankar et al. covers 21 countries and is not mapped. Cundinamarca is marked with a dashed outline. Ten appraisals land as rows, then the three criteria fill in as columns. Show ten appraisals as work to date and the difference between direct and supplementary evidence.
 
 RAE working workbook
 -->
@@ -114,7 +114,7 @@ RAE working workbook
 <!--
 Foini and colleagues forecast insufficient food consumption. Their model beat the last observed value at longer horizons in Yemen and Syria. That simple baseline did better in the other four countries they studied. Model choice depends on evidence from the conditions where it will be used.
 
-Syria and Yemen flip to “forecast led,” then the four other countries (Burkina Faso, Cameroon, Mali, Nigeria) flip to “baseline led.” Explain the baseline through the phrase “last observation.” The outcome is insufficient food consumption. Use the result to motivate local evaluation.
+The map lights Syria and Yemen first (forecast led), then Burkina Faso, Cameroon, Mali and Nigeria (baseline led). Syria and Yemen flip to “forecast led,” then the four other countries (Burkina Faso, Cameroon, Mali, Nigeria) flip to “baseline led.” Explain the baseline through the phrase “last observation.” The outcome is insufficient food consumption. Use the result to motivate local evaluation.
 
 Foini et al., results and Figure 3 (https://doi.org/10.1038/s41598-023-29700-y)
 -->

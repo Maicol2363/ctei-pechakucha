@@ -6,6 +6,8 @@ import { presenter, question, slides } from '../data/slides.js'
 import zeroHunger from '../assets/sdg2.png'
 import MunicipalMap from './MunicipalMap.vue'
 import DeckIcon from './DeckIcon.vue'
+import EvidenceMap from './EvidenceMap.vue'
+import TerrainArt from './TerrainArt.vue'
 import { outlines } from '../data/study-outlines.js'
 import gachetaPhoto from '../assets/gacheta-plaza.jpg'
 import cachipayPhoto from '../assets/cachipay-market.jpg'
@@ -50,6 +52,7 @@ const countries = [['Syria', true], ['Yemen', true], ['Burkina Faso', false], ['
     :data-motion="clock.motion && !still && clock.slide === number && clock.mode !== 'ready' ? 'on' : 'off'"
   >
     <div class="scene-field" aria-hidden="true">
+      <TerrainArt class="field-terrain" />
       <span class="field-grid" />
       <span class="field-ring" />
       <span class="field-ring field-ring-inner" />
@@ -123,12 +126,10 @@ const countries = [['Syria', true], ['Yemen', true], ['Burkina Faso', false], ['
           <span class="moving-rule" aria-hidden="true" />
         </section>
       </div>
-      <div v-if="number === 7" class="country-strip" :class="{ 'baseline-shown': step >= 2, 'forecast-shown': step >= 1 }">
-        <span
-          v-for="([name, forecastLed], index) in countries" :key="name" class="country-chip"
-          :class="forecastLed ? 'chip-forecast' : 'chip-baseline'" :style="{ '--chip': index }"
-        ><strong>{{ name }}</strong><small>{{ forecastLed ? 'Forecast led' : 'Baseline led' }}</small></span>
-      </div>
+      <figure v-if="number === 7" class="horn-figure" :class="reveal(1)">
+        <EvidenceMap variant="horn" :step="step" />
+        <figcaption>Countries in Foini et al.</figcaption>
+      </figure>
       <p class="takeaway" :class="reveal(3)">{{ slide.takeaway }}</p>
     </div>
 
@@ -244,6 +245,14 @@ const countries = [['Syria', true], ['Yemen', true], ['Burkina Faso', false], ['
       <div class="count-stat" :class="reveal(0)">
         <strong><span class="sr-only">10</span><span class="appraisal-number" aria-hidden="true" /></strong>
         <span>Full-text appraisals</span>
+        <figure class="evidence-figure">
+          <EvidenceMap variant="evidence" />
+          <figcaption>
+            <b>Where the studies were run</b>
+            <span class="evidence-key"><i class="count-1" />1 <i class="count-2" />2 <i class="count-3" />3 studies</span>
+          </figcaption>
+          <small>Not mapped: Balashankar et al., 21 countries</small>
+        </figure>
       </div>
       <div class="matrix" :data-cols="Math.min(step, 3)">
         <div class="matrix-head" aria-hidden="true">

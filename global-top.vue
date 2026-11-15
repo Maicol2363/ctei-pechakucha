@@ -11,6 +11,7 @@ import './styles/motion.css'
 import './styles/map.css'
 import './styles/scenes.css'
 import './styles/icons.css'
+import './styles/world.css'
 
 const { currentPage, go, isPrintMode, isPresenter } = useNav()
 const disabled = computed(() => staticView || isPrintMode.value || isPresenter.value)

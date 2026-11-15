@@ -1,0 +1,71 @@
+/* Terrain contours behind every slide, and the real-geography maps on slides 6 and 7. */
+
+/* contour art: Cundinamarca's relief drawn as lines */
+.field-terrain {
+  position: absolute; right: -50px; top: -34px; height: 800px; width: auto; overflow: visible; fill: none;
+  -webkit-mask-image: linear-gradient(100deg, transparent 20%, #000 72%); mask-image: linear-gradient(100deg, transparent 20%, #000 72%);
+}
+.terrain-minor, .terrain-major { fill: none; stroke: var(--scene-accent); stroke-linejoin: round; }
+.terrain-minor { stroke-width: 1; opacity: .09; }
+.terrain-major { stroke-width: 1.8; opacity: .17; }
+.tone-night .terrain-minor { stroke: #f2bd65; opacity: .22; }
+.tone-night .terrain-major { stroke: #f2bd65; opacity: .42; }
+.scene-closing .field-terrain { right: auto; left: -120px; }
+.scene-closing .field-terrain { -webkit-mask-image: linear-gradient(260deg, transparent 8%, #000 58%); mask-image: linear-gradient(260deg, transparent 8%, #000 58%); }
+[data-motion=on] .field-terrain { animation: terrain-in 2.8s var(--ease) both, terrain-drift 45s ease-in-out 2.8s infinite alternate; }
+@keyframes terrain-in { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+@keyframes terrain-drift { to { transform: translate(-16px, 12px) scale(1.025); } }
+
+/* shared land style */
+.emap { display: block; width: 100%; height: auto; overflow: hidden; }
+.emap-country {
+  fill: color-mix(in srgb, var(--scene-ink) 6%, transparent);
+  stroke: color-mix(in srgb, var(--scene-ink) 20%, transparent); stroke-width: .7; stroke-linejoin: round;
+  transform-box: fill-box; transform-origin: center;
+  transition: fill 700ms var(--ease), stroke 700ms var(--ease);
+}
+
+/* slide 6: where the ten studies were run */
+.deck-scene[data-slide='6'] .count-body { grid-template-columns: 520px minmax(0, 1fr); gap: 30px; }
+.deck-scene[data-slide='6'] .count-stat strong { font-size: 128px; }
+.deck-scene[data-slide='6'] .count-stat > span { margin-top: 4px; }
+.deck-scene[data-slide='6'] .matrix-head, .deck-scene[data-slide='6'] .matrix-rows li { grid-template-columns: 185px repeat(3, minmax(0, 1fr)); }
+.evidence-figure { display: grid; gap: 6px; margin: 16px 18px 0 0; }
+.evidence-figure figcaption { display: flex; justify-content: space-between; align-items: center; gap: 10px; color: var(--scene-muted); font: 650 15px/1.2 var(--sans); }
+.evidence-figure figcaption b { color: var(--scene-accent); font-weight: 800; }
+.evidence-figure small { color: var(--scene-muted); font: 600 14px/1.2 var(--sans); }
+.evidence-key { display: inline-flex; align-items: center; gap: 5px; }
+.evidence-key i { width: 13px; height: 13px; border: 1px solid var(--scene-accent); }
+.evidence-key .count-1, .emap-country.is-study.count-1 { fill: color-mix(in srgb, var(--scene-accent) 22%, var(--scene-bg)); }
+.evidence-key .count-2, .emap-country.is-study.count-2 { fill: color-mix(in srgb, var(--scene-accent) 52%, var(--scene-bg)); }
+.evidence-key .count-3, .emap-country.is-study.count-3 { fill: color-mix(in srgb, var(--scene-accent) 84%, var(--scene-bg)); }
+.evidence-key i.count-1 { background: color-mix(in srgb, var(--scene-accent) 22%, var(--scene-bg)); }
+.evidence-key i.count-2 { background: color-mix(in srgb, var(--scene-accent) 52%, var(--scene-bg)); }
+.evidence-key i.count-3 { background: color-mix(in srgb, var(--scene-accent) 84%, var(--scene-bg)); }
+.emap-country.is-study { stroke: var(--scene-accent); stroke-width: 1; }
+[data-motion=on] .is-visible .emap-country.is-study { animation: land-pop 800ms var(--ease) calc(350ms + var(--order) * 160ms) both; }
+@keyframes land-pop { 0% { opacity: 0; transform: scale(.7); } 60% { opacity: 1; transform: scale(1.08); } 100% { opacity: 1; transform: scale(1); } }
+.emap-country.is-home { fill: color-mix(in srgb, var(--ochre) 20%, transparent); stroke: var(--ochre); stroke-width: 1.4; stroke-dasharray: 4 3; }
+.emap-home { pointer-events: none; }
+.home-dot { fill: #fff; stroke: var(--ochre); stroke-width: 2.6; }
+.home-ring { fill: none; stroke: var(--ochre); stroke-width: 2.4; opacity: .55; transform-box: fill-box; transform-origin: center; }
+[data-motion=on] .home-ring { opacity: 0; animation: pin-ring 2.4s var(--ease) 2.2s infinite; }
+[data-motion=on] .home-ring-late { animation-delay: 3.4s; }
+
+/* slide 7: six countries, forecast against baseline */
+.deck-scene[data-slide='7'] .split-body { grid-template-columns: minmax(0, 1fr) 540px; column-gap: 40px; row-gap: 26px; align-items: center; }
+.deck-scene[data-slide='7'] .split-grid { grid-template-columns: 1fr; gap: 20px; }
+.deck-scene[data-slide='7'] .split-grid section { min-height: 0; padding: 20px 28px; gap: 8px; }
+.slidev-layout .deck-scene[data-slide='7'] .split-grid h2 { font-size: 54px; }
+.deck-scene[data-slide='7'] .takeaway { grid-column: 1 / -1; }
+.horn-figure { display: grid; gap: 6px; }
+.horn-figure figcaption { color: var(--scene-muted); font: 650 15px/1.2 var(--sans); text-align: right; }
+.emap-horn .emap-country.is-forecast.is-on { fill: var(--scene-accent); stroke: var(--scene-accent); }
+.emap-horn .emap-country.is-baseline.is-on { fill: color-mix(in srgb, var(--scene-accent) 16%, var(--scene-bg)); stroke: var(--scene-accent); stroke-width: 1.6; stroke-dasharray: 5 3; }
+[data-motion=on] .emap-horn .emap-country.is-on { animation: land-pop 800ms var(--ease) calc(var(--order) * 0ms + 120ms) both; }
+[data-motion=on] .emap-horn .emap-country.is-forecast.is-on { animation: land-pop 800ms var(--ease) 120ms both, forecast-glow 3s ease-in-out 1s infinite; }
+@keyframes forecast-glow { 0%, 100% { opacity: 1; } 50% { opacity: .72; } }
+.emap-label text { fill: var(--scene-ink); font: 750 17px var(--sans); text-anchor: middle; paint-order: stroke; stroke: var(--scene-bg); stroke-width: 4px; stroke-linejoin: round; }
+.emap-label { opacity: 0; transition: opacity 500ms var(--ease) 350ms; }
+.emap-label.is-on { opacity: 1; }
+[data-motion=off] .emap-label, [data-motion=off] .emap-country { transition: none; }
