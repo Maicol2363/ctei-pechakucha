@@ -60,6 +60,6 @@ This directory is the source for the public deck repository. Push changes to `ma
 
 - **Settings.** Seconds per slide (20), number of slides (20), a warning buzz a few seconds before each change (off), and switches for vibration, beep and screen flash. They are saved on the phone. The defaults give changes at 0:20, 0:40 and so on, and a long double buzz at 6:40.
 - **Nudge.** −1 s and +1 s move the phone's clock if it drifts from the deck.
-- **Android.** Chrome vibrates. Keep the screen on and the page in front: phones pause web pages when the screen locks. The page asks the phone to keep the screen awake while it runs.
+- **Android.** Chrome vibrates. In Chrome's menu choose Install app (or Add to Home screen) to open the buzzer full screen like an app. Use the Test buzz button first: if nothing vibrates, check that touch vibration is on in the phone's sound settings and that battery saver is off. Keep the screen on and the page in front: phones pause web pages when the screen locks. The page asks the phone to keep the screen awake while it runs.
 - **iPhone.** Browsers on iPhone cannot vibrate from a web page, so beep and screen flash are used instead. Turn the volume up.
 - **Offline.** After the page has loaded once, it also opens without a connection.
