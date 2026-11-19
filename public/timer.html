@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a211e">
+<title>Slide buzzer</title>
+<style>
+  :root { --deep: #0a211e; --night: #102d29; --cream: #fff6df; --amber: #f2bd65; --muted: #c5d4bb; --rose: #e58178; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--deep); color: var(--cream); font: 500 17px/1.35 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+  body { min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; gap: 14px; padding: max(16px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom)); transition: background-color 220ms ease; }
+  body.flash { background: #5b4310; }
+  header { display: flex; justify-content: space-between; align-items: baseline; }
+  h1 { margin: 0; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+  #cap { color: var(--muted); font-size: 14px; }
+  main { display: grid; place-items: center; align-content: center; gap: 10px; text-align: center; }
+  .ring { position: relative; width: min(78vw, 46dvh, 340px); aspect-ratio: 1; }
+  .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .ring circle { fill: none; stroke-width: 10; }
+  .ring .track { stroke: #f2bd6528; }
+  .ring .bar { stroke: var(--amber); stroke-linecap: round; transition: stroke-dashoffset 120ms linear; }
+  .ring .label { position: absolute; inset: 0; display: grid; place-content: center; gap: 2px; }
+  #slide { font-size: clamp(54px, 18vw, 92px); font-weight: 800; line-height: 1; letter-spacing: -.03em; }
+  #slide small { font-size: .38em; color: var(--muted); font-weight: 600; }
+  #next { color: var(--amber); font-size: 18px; font-weight: 700; }
+  #clock { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 18px; }
+  #state { min-height: 1.4em; color: var(--muted); font-size: 15px; }
+  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  button { font: inherit; font-weight: 750; border-radius: 10px; border: 1.5px solid var(--amber); background: transparent; color: var(--cream); padding: 15px 12px; touch-action: manipulation; }
+  button.primary { grid-column: 1 / -1; background: var(--amber); color: var(--deep); font-size: 22px; padding: 22px 12px; }
+  button.small { padding: 10px 12px; font-size: 15px; border-color: #f2bd6560; }
+  details { border: 1px solid #f2bd6540; border-radius: 10px; padding: 8px 12px; background: var(--night); }
+  summary { cursor: pointer; font-weight: 700; color: var(--amber); padding: 6px 0; }
+  .grid { display: grid; grid-template-columns: 1fr auto; gap: 10px 12px; align-items: center; margin: 8px 0 4px; }
+  label { color: var(--cream); }
+  input[type=number] { width: 88px; font: inherit; font-size: 18px; padding: 8px; border-radius: 8px; border: 1px solid #f2bd6570; background: var(--deep); color: var(--cream); text-align: center; }
+  input[type=checkbox] { width: 24px; height: 24px; accent-color: var(--amber); }
+  .row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .note { color: var(--muted); font-size: 14px; margin: 8px 0 2px; }
+  .warn { color: var(--rose); }
+</style>
+</head>
+<body>
+<header><h1>Slide buzzer</h1><span id="cap"></span></header>
+
+<main>
+  <div class="ring" aria-live="off">
+    <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="track" cx="60" cy="60" r="54"/><circle class="bar" id="bar" cx="60" cy="60" r="54" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg>
+    <div class="label"><div id="slide">Ready</div><div id="next"></div></div>
+  </div>
+  <div id="clock">0:00 / 6:40</div>
+  <div id="state"></div>
+</main>
+
+<section>
+  <div class="actions">
+    <button class="primary" id="start">Start</button>
+    <button id="pause" hidden>Pause</button>
+    <button id="reset" hidden>Reset</button>
+  </div>
+  <details style="margin-top:12px">
+    <summary>Settings</summary>
+    <div class="grid">
+      <label for="interval">Seconds per slide</label><input id="interval" type="number" min="3" max="600" step="1">
+      <label for="slides">Number of slides</label><input id="slides" type="number" min="1" max="200" step="1">
+      <label for="warn">Warn before change (s, 0 = off)</label><input id="warn" type="number" min="0" max="30" step="1">
+      <label for="vibrate">Vibrate</label><input id="vibrate" type="checkbox">
+      <label for="sound">Beep</label><input id="sound" type="checkbox">
+      <label for="flash">Flash screen</label><input id="flash" type="checkbox">
+    </div>
+    <div class="row">
+      <button class="small" id="test">Test buzz</button>
+      <button class="small" id="back">−1 s</button>
+      <button class="small" id="fwd">+1 s</button>
+    </div>
+    <p class="note">Every change is one short buzz. The end of the last slide is a long double buzz. −1 s and +1 s nudge the clock if the deck and the phone drift apart.</p>
+    <p class="note" id="support"></p>
+  </details>
+</section>
+
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const KEY = 'slide-buzzer-v1';
+  const defaults = { interval: 20, slides: 20, warn: 0, vibrate: true, sound: false, flash: true };
+  let cfg = { ...defaults };
+  try { cfg = { ...defaults, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch {}
+  const canVibrate = typeof navigator.vibrate === 'function';
+  if (!canVibrate && !JSON.parse(localStorage.getItem(KEY + '-seen') || 'false')) { cfg.sound = true; }
+  try { localStorage.setItem(KEY + '-seen', 'true'); } catch {}
+
+  const fmt = ms => { const s = Math.max(0, Math.floor(ms / 1000)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cfg)); } catch {} };
+
+  for (const id of ['interval', 'slides', 'warn']) {
+    $(id).value = cfg[id];
+    $(id).addEventListener('change', () => { const v = Math.round(Number($(id).value)); cfg[id] = Number.isFinite(v) && v >= 0 ? v : defaults[id]; if (id !== 'warn' && cfg[id] < 1) cfg[id] = defaults[id]; $(id).value = cfg[id]; save(); idle(); });
+  }
+  for (const id of ['vibrate', 'sound', 'flash']) {
+    $(id).checked = cfg[id];
+    $(id).addEventListener('change', () => { cfg[id] = $(id).checked; save(); });
+  }
+  $('support').innerHTML = canVibrate
+    ? 'Vibration works on this device. Keep the screen on and the page open: phones pause web pages when the screen locks.'
+    : '<span class="warn">This browser cannot vibrate (iPhone browsers cannot).</span> Beep and screen flash are on instead. Turn the phone volume up and put it on the table in sight.';
+
+  const ringBar = $('bar');
+  let startAt = 0, pausedAt = 0, running = false, finished = false, lastBuzz = 0, lastWarn = 0, timer = 0, wake = null, audio = null, nudge = 0;
+
+  function total() { return cfg.interval * cfg.slides * 1000; }
+  function idle() {
+    $('slide').innerHTML = 'Ready';
+    $('next').textContent = cfg.slides + ' slides · ' + cfg.interval + ' s each';
+    $('clock').textContent = '0:00 / ' + fmt(total());
+    $('cap').textContent = '';
+    ringBar.style.strokeDashoffset = 1;
+  }
+
+  async function lock() {
+    try { if ('wakeLock' in navigator) { wake = await navigator.wakeLock.request('screen'); wake.addEventListener('release', () => { wake = null; }); } } catch {}
+  }
+  document.addEventListener('visibilitychange', () => { if (running && document.visibilityState === 'visible') { if (!wake) lock(); tick(); } });
+
+  function beep(times, long) {
+    if (!cfg.sound) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      if (audio.state === 'suspended') audio.resume();
+      for (let i = 0; i < times; i++) {
+        const t = audio.currentTime + i * (long ? 0.42 : 0.2);
+        const osc = audio.createOscillator(), gain = audio.createGain();
+        osc.frequency.value = long ? 660 : 880; osc.type = 'sine';
+        gain.gain.setValueAtTime(0.0001, t); gain.gain.exponentialRampToValueAtTime(0.5, t + 0.02); gain.gain.exponentialRampToValueAtTime(0.0001, t + (long ? 0.34 : 0.14));
+        osc.connect(gain).connect(audio.destination); osc.start(t); osc.stop(t + 0.4);
+      }
+    } catch {}
+  }
+  function buzz(kind) {
+    const pattern = kind === 'end' ? [600, 150, 600] : kind === 'warn' ? [70] : [260];
+    if (cfg.vibrate && canVibrate) { try { navigator.vibrate(pattern); } catch {} }
+    beep(kind === 'end' ? 2 : kind === 'warn' ? 1 : 1, kind === 'end');
+    if (cfg.flash) { document.body.classList.add('flash'); setTimeout(() => document.body.classList.remove('flash'), kind === 'warn' ? 120 : 320); }
+  }
+
+  function elapsed() { return (running ? Date.now() : pausedAt) - startAt + nudge; }
+
+  function tick() {
+    if (!running) return;
+    const ms = Math.min(elapsed(), total());
+    const slideMs = cfg.interval * 1000;
+    const index = Math.min(cfg.slides, Math.floor(ms / slideMs) + 1);
+    // each boundary k (k = 1 .. slides) buzzes once; skip any that passed while the page was asleep
+    const boundary = Math.floor(ms / slideMs);
+    if (boundary > lastBuzz) {
+      const late = ms - boundary * slideMs;
+      if (late < 1500) buzz(boundary >= cfg.slides ? 'end' : 'change');
+      lastBuzz = boundary;
+    }
+    const toNext = (index * slideMs) - ms;
+    if (cfg.warn > 0 && index < cfg.slides && toNext <= cfg.warn * 1000 && lastWarn !== index) { lastWarn = index; if (toNext > 300) buzz('warn'); }
+    if (ms >= total()) { finish(); return; }
+    $('slide').innerHTML = index + ' <small>/ ' + cfg.slides + '</small>';
+    $('next').textContent = index < cfg.slides ? 'next in ' + Math.ceil(toNext / 1000) + ' s' : 'last slide · ' + Math.ceil(toNext / 1000) + ' s';
+    $('clock').textContent = fmt(ms) + ' / ' + fmt(total());
+    $('cap').textContent = 'slide ' + index;
+    ringBar.style.strokeDashoffset = String(1 - (ms % slideMs) / slideMs);
+  }
+
+  function finish() {
+    running = false; finished = true; clearInterval(timer);
+    $('slide').textContent = 'Done';
+    $('next').textContent = 'time is up';
+    $('clock').textContent = fmt(total()) + ' / ' + fmt(total());
+    ringBar.style.strokeDashoffset = 0;
+    $('pause').hidden = true; $('start').hidden = false; $('start').textContent = 'Start again';
+    release();
+  }
+  function release() { try { wake && wake.release(); } catch {} wake = null; }
+
+  function start() {
+    if (cfg.sound) { try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); audio.resume(); } catch {} }
+    nudge = 0; lastBuzz = 0; lastWarn = 0; finished = false;
+    startAt = Date.now(); running = true;
+    $('start').hidden = true; $('pause').hidden = false; $('reset').hidden = false; $('pause').textContent = 'Pause';
+    $('state').textContent = '';
+    lock();
+    clearInterval(timer); timer = setInterval(tick, 100); tick();
+    if (cfg.vibrate && canVibrate) { try { navigator.vibrate(40); } catch {} }
+  }
+  function pause() {
+    if (running) { running = false; pausedAt = Date.now(); clearInterval(timer); $('pause').textContent = 'Resume'; $('state').textContent = 'Paused'; }
+    else if (!finished) { startAt += Date.now() - pausedAt; running = true; $('pause').textContent = 'Pause'; $('state').textContent = ''; lock(); timer = setInterval(tick, 100); tick(); }
+  }
+  function reset() {
+    running = false; finished = false; clearInterval(timer); release();
+    $('start').hidden = false; $('start').textContent = 'Start'; $('pause').hidden = true; $('reset').hidden = true; $('state').textContent = '';
+    idle();
+  }
+
+  $('start').addEventListener('click', start);
+  $('pause').addEventListener('click', pause);
+  $('reset').addEventListener('click', reset);
+  $('test').addEventListener('click', () => { buzz('change'); setTimeout(() => buzz('end'), 900); });
+  $('back').addEventListener('click', () => { nudge -= 1000; if (running) tick(); });
+  $('fwd').addEventListener('click', () => { nudge += 1000; if (running) tick(); });
+  window.__buzzer = { cfg: () => cfg, buzz };
+  idle();
+
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('timer-sw.js').catch(() => {});
+})();
+</script>
+</body>
+</html>

@@ -282,6 +282,7 @@ onBeforeUnmount(() => {
         <div class="start-actions">
           <button type="button" class="primary-action" @click="start">Start presentation <span aria-hidden="true">→</span></button>
           <button type="button" class="secondary-action" @click="study()">Study mode <span>· Choose a slide</span></button>
+          <a class="secondary-action phone-link" href="timer.html" target="_blank" rel="noopener">Phone buzzer <span>· Vibrates on each change</span></a>
         </div>
       </div>
     </div>
