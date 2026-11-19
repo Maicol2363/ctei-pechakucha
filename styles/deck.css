@@ -414,6 +414,8 @@ html[data-deck-motion=off] .grid-shift-leave-active { transition: none; }
 .secondary-action { background: transparent; color: var(--cream); }
 .secondary-action span { color: var(--amber); font-weight: 560; }
 .start-actions a.phone-link { display: inline-block; border: 1px solid var(--amber); border-radius: 4px; padding: 12px 18px; font: 760 16px/1.2 var(--sans); color: var(--cream); text-decoration: none; }
+.start-from { display: flex; align-items: center; gap: 12px; color: var(--amber); font: 560 15px/1.2 var(--sans); }
+.start-from select { flex: 1; max-width: 460px; background: var(--deep); color: var(--cream); border: 1px solid #f2bd6570; border-radius: 4px; padding: 10px 12px; font: 560 15px/1.2 var(--sans); }
 .enter-study, .study-controls {
   position: absolute;
   pointer-events: auto;

@@ -17,6 +17,7 @@ const { currentPage, go, isPrintMode, isPresenter } = useNav()
 const disabled = computed(() => staticView || isPrintMode.value || isPresenter.value)
 const showNotes = ref(false)
 const backupPage = ref(null)
+const fromSlide = ref(1)
 const active = computed(() => slides[clock.slide - 1])
 const note = computed(() => notes[clock.slide - 1])
 const progress = computed(() => Math.max(0, Math.min(1, clock.elapsed / totalMs)))
@@ -90,13 +91,14 @@ function frameTick() {
   }
 }
 
-function start() {
+function start(from = fromSlide.value) {
+  const first = Math.max(1, Math.min(slides.length, Number(from) || 1))
   showNotes.value = false
   backupPage.value = null
-  clock.slide = 1
-  clock.elapsed = 0
+  clock.slide = first
+  clock.elapsed = (first - 1) * slotMs
   clock.step = 0
-  startTime = performance.now()
+  startTime = performance.now() - clock.elapsed
   clock.mode = 'live'
   navigate()
 }
@@ -280,7 +282,12 @@ onBeforeUnmount(() => {
         <h2>Municipal food insecurity</h2>
         <p>20 slides · 20 seconds each · {{ totalLabel }}</p>
         <div class="start-actions">
-          <button type="button" class="primary-action" @click="start">Start presentation <span aria-hidden="true">→</span></button>
+          <button type="button" class="primary-action" @click="start()">{{ fromSlide > 1 ? 'Resume from slide ' + fromSlide : 'Start presentation' }} <span aria-hidden="true">→</span></button>
+          <label class="start-from">Start from
+            <select v-model.number="fromSlide" aria-label="Start the presentation from slide">
+              <option v-for="(s, i) in slides" :key="i" :value="i + 1">{{ i + 1 }} · {{ s.title }} · {{ formatTime(i * slotMs) }}</option>
+            </select>
+          </label>
           <button type="button" class="secondary-action" @click="study()">Study mode <span>· Choose a slide</span></button>
           <a class="secondary-action phone-link" href="timer.html" target="_blank" rel="noopener">Phone buzzer <span>· Vibrates on each change</span></a>
         </div>
